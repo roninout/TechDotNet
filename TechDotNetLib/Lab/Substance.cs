@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TechDotNetLib.Lab
 {
+    // Абстрактный класс для вещества
     abstract class Substance
     {
+        public double MolarMass { get; set; }
     }
 }
