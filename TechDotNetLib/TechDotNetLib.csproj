@@ -63,13 +63,12 @@
     <Compile Include="ActiveX\RectangleActiveX\RectangleActiveXUI.Designer.cs">
       <DependentUpon>RectangleActiveXUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Lab\Substance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ActiveX\RectangleActiveX\IRectangleActiveX.cs" />
     <Compile Include="ActiveX\RectangleActiveX\IRectangleActiveXEvents.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Lab\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="ActiveX\DrawingActiveX\DrawingActiveXUI.resx">
       <DependentUpon>DrawingActiveXUI.cs</DependentUpon>
