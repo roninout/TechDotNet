@@ -26,7 +26,7 @@ namespace TechDotNetLib.ActiveX.RectangleActiveX
             InitializeComponent();
             this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             this.BackColor = Color.Transparent;
-            //CommitInMaster_01_Khrolenko
+            //CommitInMaster
         }
 
         #region Subscribe
