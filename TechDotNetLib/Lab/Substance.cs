@@ -11,6 +11,7 @@ namespace TechDotNetLib.Lab
     {
         // молярная масса вещества
         public double MolarMass { get; set; }
+        //
 
 
     }
