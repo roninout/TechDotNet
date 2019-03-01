@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace TechDotNetLib.Lab
 {
+    // Привет Темыч я подключился
+
     // Абстрактный класс для вещества
     abstract class Substance
     {
