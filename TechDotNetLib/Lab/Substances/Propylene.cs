@@ -7,8 +7,7 @@ namespace TechDotNetLib.Lab.Substances
         public Propylene()
         {
             // привет повтор
-            //prprprpr
-            //prprprpr2
+            //prprprpr            
         }
     }
 }
