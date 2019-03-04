@@ -2,11 +2,11 @@
 
 namespace TechDotNetLib.Lab.Substances
 {
-    public class Substance
+    //Абстрактный класс для вещества
+    public abstract class Substance
     {
-        public Substance()
-        {
-        }
+        //Молярная масса вещества
+        public abstract double MolarMass { get; set; }
     }
 }
 
