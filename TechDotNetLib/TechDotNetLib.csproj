@@ -60,7 +60,7 @@
     <Compile Include="ActiveX\RectangleActiveX\IRectangleActiveXEvents.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Lab\" />
+    <Folder Include="Lab\folder\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ActiveX\RectangleActiveX\RectangleActiveXForm.resx">
