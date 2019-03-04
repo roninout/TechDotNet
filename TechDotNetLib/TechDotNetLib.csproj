@@ -43,14 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActiveX\DrawingActiveX\DrawingActiveXUI.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ActiveX\DrawingActiveX\DrawingActiveXUI.Designer.cs">
-      <DependentUpon>DrawingActiveXUI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ActiveX\DrawingActiveX\IDrawingActiveX.cs" />
-    <Compile Include="ActiveX\DrawingActiveX\IDrawingActiveXEvent.cs" />
     <Compile Include="ActiveX\RectangleActiveX\RectangleActiveXForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,16 +55,14 @@
     <Compile Include="ActiveX\RectangleActiveX\RectangleActiveXUI.Designer.cs">
       <DependentUpon>RectangleActiveXUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Lab\Substance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ActiveX\RectangleActiveX\IRectangleActiveX.cs" />
     <Compile Include="ActiveX\RectangleActiveX\IRectangleActiveXEvents.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="ActiveX\DrawingActiveX\DrawingActiveXUI.resx">
-      <DependentUpon>DrawingActiveXUI.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Lab\" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="ActiveX\RectangleActiveX\RectangleActiveXForm.resx">
       <DependentUpon>RectangleActiveXForm.cs</DependentUpon>
     </EmbeddedResource>
