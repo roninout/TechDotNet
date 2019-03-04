@@ -55,13 +55,13 @@
     <Compile Include="ActiveX\RectangleActiveX\RectangleActiveXUI.Designer.cs">
       <DependentUpon>RectangleActiveXUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Lab\Substances\Propylene.cs" />
+    <Compile Include="Lab\Substances\Substance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ActiveX\RectangleActiveX\IRectangleActiveX.cs" />
     <Compile Include="ActiveX\RectangleActiveX\IRectangleActiveXEvents.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Lab\folder\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="ActiveX\RectangleActiveX\RectangleActiveXForm.resx">
       <DependentUpon>RectangleActiveXForm.cs</DependentUpon>
