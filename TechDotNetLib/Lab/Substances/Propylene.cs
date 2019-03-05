@@ -9,6 +9,7 @@ namespace TechDotNetLib.Lab.Substances
         }
 
         public override double MolarMass { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        //
     }
 }
 
