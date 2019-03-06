@@ -15,7 +15,7 @@ namespace TechDotNetLib.Lab.Substances
         public abstract double getDensity(double temperature, double pressure);
 
         //Метод для определения теплоемкости вещества при 100% концентрации
-        public abstract double getCapacity(double temperature, double pressure);
+        public abstract double getCapacity(double temperature);
 
 
         

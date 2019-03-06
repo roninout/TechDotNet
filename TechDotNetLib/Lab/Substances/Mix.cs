@@ -14,7 +14,7 @@ namespace TechDotNetLib.Lab.Substances
         private Dictionary<Substance, double> mixContent;
 
 
-        internal Mix()
+        public Mix()
         {
             mixContent = new Dictionary<Substance, double>();
         }
