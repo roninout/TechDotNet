@@ -58,6 +58,7 @@
     <Compile Include="Lab\Substances\Acetonitrile.cs" />
     <Compile Include="Lab\Substances\Mix.cs" />
     <Compile Include="Lab\Substances\Propylene.cs" />
+    <Compile Include="Lab\Substances\PropyleneOxyde.cs" />
     <Compile Include="Lab\Substances\Substance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ActiveX\RectangleActiveX\IRectangleActiveX.cs" />

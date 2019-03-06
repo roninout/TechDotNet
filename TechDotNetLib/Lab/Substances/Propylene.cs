@@ -7,19 +7,18 @@ namespace TechDotNetLib.Lab.Substances
         #region fields & props
 
         private const double molarMass = 42.081;        
-        private bool isSteam;
+        //private bool isSteam;
 
         //Молярная масса пропилена
         public override double MolarMass { get => molarMass; }
 
         //Признак агрегатного состояния пропилена в точке измерения
         public override bool IsSteam { get => isSteam; }
-
+        
         #endregion       
 
-        public Propylene(bool _isSteam)
-        {
-            isSteam = _isSteam;
+        public Propylene(bool _isSteam) :  base(_isSteam)
+        {            
         }
 
         #region Methods
@@ -50,7 +49,7 @@ namespace TechDotNetLib.Lab.Substances
             else //Газ
             {
                 //Плотность газа = P * 10^2/R/T(K)
-                //R = 8.314/M
+                //R = 8.314
                 //T(K) = t(Cels) + 273.15
 
                 try
@@ -59,7 +58,7 @@ namespace TechDotNetLib.Lab.Substances
                 }
                 catch (ArithmeticException)
                 {
-                    throw;
+                    
                 }
             }
 
@@ -83,9 +82,8 @@ namespace TechDotNetLib.Lab.Substances
                 //y = a2*x^2 + a1*x + a0
                 a0 = 2.4662773;
                 a1 = 0.0068441815;
-                a2 = 0.000029348162;
+                a2 = 0.000029348162;              
                 
-                capacity = a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
             }
             else
             {//Газ
@@ -96,9 +94,9 @@ namespace TechDotNetLib.Lab.Substances
                 a3 = -0.000000034652143;
                 a4 = 1.7356035E-10;
                 a5 = -3.0549926E-13;
-
-                capacity = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
+               
             }
+            capacity = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
             return capacity;
         }
 

@@ -6,8 +6,12 @@ namespace TechDotNetLib.Lab.Substances
     public abstract class Substance
     {
         #region fields & props
+        
         //Универсальная газовая постоянная Дж/(моль*К)
         protected const double R = 8.3144598;
+
+        //Признак агрегатного состояния пропилена в точке измерения
+        protected bool isSteam;
 
         //Молярная масса вещества
         public abstract double MolarMass { get; }
@@ -24,6 +28,11 @@ namespace TechDotNetLib.Lab.Substances
         //Метод для определения теплоемкости вещества при 100% концентрации
         public abstract double getCapacity(double temperature);
         #endregion
+
+        public Substance(bool _isSteam)
+        {
+            isSteam = _isSteam;
+        }
 
 
     }
