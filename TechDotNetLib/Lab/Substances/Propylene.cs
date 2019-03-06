@@ -4,23 +4,23 @@ namespace TechDotNetLib.Lab.Substances
 {
     public class Propylene : Substance
     {
-        private const double molarMass = 42.081;
+        #region fields & props
+
+        private const double molarMass = 42.081;        
         private bool isSteam;
 
-        public Propylene(bool _isSteam)
-        {
-            isSteam = _isSteam;
-        }
-
-        #region Props
         //Молярная масса пропилена
         public override double MolarMass { get => molarMass; }
 
         //Признак агрегатного состояния пропилена в точке измерения
         public override bool IsSteam { get => isSteam; }
-        #endregion
 
+        #endregion       
 
+        public Propylene(bool _isSteam)
+        {
+            isSteam = _isSteam;
+        }
 
         #region Methods
         //Метод для определения плотности вещества при 100% концентрации, кг/м3
@@ -35,8 +35,8 @@ namespace TechDotNetLib.Lab.Substances
 
             double density = 0.0;
 
-            if (!this.isSteam)
-            { //Жидкость
+            if (!this.isSteam) //Жидкость
+            { 
                 //y = a5*x^5 + a4*x^4 + a3*x^3 + a2*x^2 + a1*x + a0
                 a0 = 544.49444;
                 a1 = -1.6067697;
@@ -44,24 +44,21 @@ namespace TechDotNetLib.Lab.Substances
                 a3 = 0.000066556211;
                 a4 = 0.00000085372924;
                 a5 = -0.000000024993478;
+
                 density = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
             }
             else //Газ
             {
-                //y = P * 10^5/R/T(K)
-                //R = 8314/M
+                //Плотность газа = P * 10^2/R/T(K)
+                //R = 8.314/M
                 //T(K) = t(Cels) + 273.15
-
-                //double _p = pressure;                
-                double _p = this.getPressure(temperature);
 
                 try
                 {
-                    density = _p * Math.Pow(10, 5) / (8314 / 42.081) / (temperature + 273.15);
+                    density = pressure * Math.Pow(10, 2) / (R / this.MolarMass) / (temperature + 273.15);
                 }
                 catch (ArithmeticException)
                 {
-
                     throw;
                 }
             }
