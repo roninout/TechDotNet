@@ -26,15 +26,25 @@ namespace TechDotNetLib.Lab.Substances
         }
 
         //Метод для расчета плотности смеси
-        internal double getMixDensity()
+        internal double GetMixDensity(double _temp, double _press)
         {
-            return 0.0;
+            double tmp_density = 0; ;
+            foreach (KeyValuePair<Substance, double> pair in mixContent)
+            {
+                tmp_density += pair.Value * 0.0001 / pair.Key.getDensity(_temp, _press);
+            }
+            return 1 / tmp_density;
         }
 
         //Метод для расчета теплоемкости смеси
-        internal double getMixCapacity()
+        internal double getMixCapacity(double _temp, double _press)
         {
-            return 0.0;
+            double tmp_capacity = 0; ;
+            foreach (KeyValuePair<Substance, double> pair in mixContent)
+            {
+                tmp_capacity += pair.Value * 0.0001 * pair.Key.getDensity(_temp, _press);
+            }
+            return tmp_capacity;
         }
 
 
