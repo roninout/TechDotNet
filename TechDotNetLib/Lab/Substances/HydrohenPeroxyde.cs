@@ -6,24 +6,23 @@ using System.Threading.Tasks;
 
 namespace TechDotNetLib.Lab.Substances
 {
-    public class Acetonitrile : Substance
+    public class HydrohenPeroxyde : Substance
     {
-        
         #region fields & props
+        private const double molarMass = 34.015;
 
-        private const double molarMass = 41.0524;        
-
-        //Молярная масса ацетонитрила
+        //Молярная масса перекиси водорода
         public override double MolarMass => molarMass;
 
-        //Признак агрегатного состояния ацетонитрила в точке измерения
+        //Признак агрегатного состояния перекиси водорода в точке измерения
         public override bool IsSteam => isSteam;
 
         #endregion
 
-        public Acetonitrile(bool _isSteam) : base(_isSteam)
+
+        public HydrohenPeroxyde(bool _isSteam) : base(_isSteam)
         {
-            
+
         }
 
         #region methods
@@ -41,9 +40,11 @@ namespace TechDotNetLib.Lab.Substances
             double density = 0.0;
 
             if (!this.isSteam) //Жидкость
-            {               
-                a0 = 803.07;
-                a1 = -1.0542;
+            {                
+                a0 = 1471.4234;
+                a1 = -1.1229705;
+                a2 = -0.00043327967;
+                a3 = -0.00000072845085;
 
                 //y = a5*x^5 + a4*x^4 + a3*x^3 + a2*x^2 + a1*x + a0
                 density = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
@@ -60,14 +61,14 @@ namespace TechDotNetLib.Lab.Substances
                 }
                 catch (ArithmeticException)
                 {
-                    
+
                 }
             }
 
             return density;
         }
 
-        //Метод для определения теплоемкости вещества при 100% концентрации, кДж/кг/грК        
+        //Метод для определения теплоемкости вещества при 100% концентрации, кДж/кг/грК       
         public override double getCapacity(double temperature)
         {
             double a0 = 0.0;
@@ -82,21 +83,24 @@ namespace TechDotNetLib.Lab.Substances
             if (!this.isSteam)
             { //Жидкость
                 //y = a2*x^2 + a1*x + a0
-                a0 = 2.1864307;
-                a1 = 0.0015649999;
-                a2 = 0.0000083021163;                
+                a0 = 2.4605939;
+                a1 = 0.0021372924;
+                a2 = 0.0;
+                a3 = 0.0;
+                a4 = 0.0;
+                a5 = 0.0;
+
             }
             else
             {//Газ
 
-                a0 = 1.2125728;
-                a1 = 0.0022147106;
-                a2 = 0.0000024869344;
-                a3 = -0.000000025107206;
-                a4 = 5.9195896E-11;
-                a5 = 0.0;                
+                a0 = 1.2117451;
+                a1 = 0.0011298187;
+                a2 = 0.0000024125834;
+                a3 = -0.000000016911386;
+                a4 = 3.1232139E-11;
+                a5 = 0.0;
             }
-
             capacity = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
             return capacity;
         }
@@ -106,19 +110,18 @@ namespace TechDotNetLib.Lab.Substances
         {
             //y = a5*x^5 + a4*x^4 + a3*x^3 + a2*x^2 + a1*x + a0
 
-            double a0 = 0.036484162;
-            double a1 = 0.0013598701;
-            double a2 = 0.000067036419;
-            double a3 = 0.000000064375591;
-            double a4 = 8.6595042E-09;
+            double a0 = 1.310908;
+            double a1 = -0.038738568;
+            double a2 = 0.00047857264;
+            double a3 = -0.0000029883632;
+            double a4 = 9.5284911E-09;
             double a5 = 0.0;
 
             double pressureSaturation = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
-            
+
             return pressureSaturation;
         }
 
         #endregion
-
     }
 }

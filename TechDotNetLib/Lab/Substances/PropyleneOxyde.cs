@@ -13,10 +13,10 @@ namespace TechDotNetLib.Lab.Substances
         private const double molarMass = 58.08;
 
         //Молярная масса пропиленоксида
-        public override double MolarMass { get => molarMass; }
+        public override double MolarMass => molarMass;
 
         //Признак агрегатного состояния пропиленоксида в точке измерения
-        public override bool IsSteam {get => isSteam; }
+        public override bool IsSteam => isSteam;
 
         #endregion
 
@@ -39,11 +39,11 @@ namespace TechDotNetLib.Lab.Substances
             double density = 0.0;
 
             if (!this.isSteam) //Жидкость
-            {
-                //y = a5*x^5 + a4*x^4 + a3*x^3 + a2*x^2 + a1*x + a0
+            {                
                 a0 = 853.7;
                 a1 = -1.22;
 
+                //y = a5*x^5 + a4*x^4 + a3*x^3 + a2*x^2 + a1*x + a0
                 density = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
             }
             else //Газ

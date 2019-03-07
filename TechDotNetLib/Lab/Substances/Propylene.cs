@@ -10,12 +10,12 @@ namespace TechDotNetLib.Lab.Substances
         //private bool isSteam;
 
         //Молярная масса пропилена
-        public override double MolarMass { get => molarMass; }
+        public override double MolarMass => molarMass;
 
         //Признак агрегатного состояния пропилена в точке измерения
-        public override bool IsSteam { get => isSteam; }
-        
-        #endregion       
+        public override bool IsSteam => isSteam;
+
+        #endregion
 
         public Propylene(bool _isSteam) :  base(_isSteam)
         {            
@@ -35,8 +35,7 @@ namespace TechDotNetLib.Lab.Substances
             double density = 0.0;
 
             if (!this.isSteam) //Жидкость
-            { 
-                //y = a5*x^5 + a4*x^4 + a3*x^3 + a2*x^2 + a1*x + a0
+            {                 
                 a0 = 544.49444;
                 a1 = -1.6067697;
                 a2 = -0.0062071911;
@@ -44,6 +43,7 @@ namespace TechDotNetLib.Lab.Substances
                 a4 = 0.00000085372924;
                 a5 = -0.000000024993478;
 
+                //y = a5*x^5 + a4*x^4 + a3*x^3 + a2*x^2 + a1*x + a0
                 density = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
             }
             else //Газ
