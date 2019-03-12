@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TechDotNetLib.Lab.Substances
 {
-    public class Ethanol : Substance
+    internal class Ethanol : Substance
     {
         #region fields & props
 
@@ -28,7 +28,7 @@ namespace TechDotNetLib.Lab.Substances
         #region methods
 
         //Метод для определения плотности вещества при 100% концентрации, кг/м3
-        public override double getDensity(double temperature, double pressure)
+        public override double GetDensity(double temperature, double pressure)
         {
             double a0 = 0.0;
             double a1 = 0.0;
@@ -62,7 +62,7 @@ namespace TechDotNetLib.Lab.Substances
         }
 
         //Метод для определения теплоемкости вещества при 100% концентрации, кДж/кг/грК       
-        public override double getCapacity(double temperature)
+        public override double GetCapacity(double temperature)
         {
             double a0 = 0.0;
             double a1 = 0.0;

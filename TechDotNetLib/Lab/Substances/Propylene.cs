@@ -2,12 +2,11 @@
 
 namespace TechDotNetLib.Lab.Substances
 {
-    public class Propylene : Substance
+    internal class Propylene : Substance
     {
         #region fields & props
 
-        private const double molarMass = 42.081;        
-        //private bool isSteam;
+        private const double molarMass = 42.081;    
 
         //Молярная масса пропилена
         public override double MolarMass => molarMass;
@@ -23,7 +22,7 @@ namespace TechDotNetLib.Lab.Substances
 
         #region Methods
         //Метод для определения плотности вещества при 100% концентрации, кг/м3
-        public override double getDensity(double temperature, double pressure)
+        public override double GetDensity(double temperature, double pressure)
         {
             double a0 = 0.0;
             double a1 = 0.0;
@@ -66,7 +65,7 @@ namespace TechDotNetLib.Lab.Substances
         }
 
         //Метод для определения теплоемкости вещества при 100% концентрации, кДж/кг/грК
-        public override double getCapacity(double temperature)
+        public override double GetCapacity(double temperature)
         {
             double a0 = 0.0;
             double a1 = 0.0;
@@ -101,7 +100,7 @@ namespace TechDotNetLib.Lab.Substances
         }
 
         //Расчет давления насыщенного пара при заданной температуре, бар, абс.
-        private double getPressure(double temperature)
+        private double GetPressure(double temperature)
         {
             //y = a5*x^5 + a4*x^4 + a3*x^3 + a2*x^2 + a1*x + a0
             double a0 = 0.0;

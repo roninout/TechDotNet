@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TechDotNetLib.Lab.Substances
 {
-    public class Nitrogen : Substance
+    internal class Nitrogen : Substance
     {
         
         #region fields & props
@@ -28,7 +28,7 @@ namespace TechDotNetLib.Lab.Substances
         #region methods
 
         //Метод для определения плотности вещества при 100% концентрации, кг/м3
-        public override double getDensity(double temperature, double pressure)
+        public override double GetDensity(double temperature, double pressure)
         {
             //Плотность газа = P * 10^2/R/T(K)
             //R = 8.314
@@ -47,7 +47,7 @@ namespace TechDotNetLib.Lab.Substances
         }
 
         //Метод для определения теплоемкости вещества при 100% концентрации, кДж/кг/грК       
-        public override double getCapacity(double temperature)
+        public override double GetCapacity(double temperature)
         {            
             double capacity = 0.0;
             
