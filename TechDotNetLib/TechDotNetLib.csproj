@@ -66,6 +66,7 @@
     <Compile Include="Lab\Substances\Substance.cs" />
     <Compile Include="Lab\Substances\UnknownSubstance.cs" />
     <Compile Include="Lab\Substances\Water.cs" />
+    <Compile Include="Lab\Substances\WaterSteemProLib\WspLib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ActiveX\RectangleActiveX\IRectangleActiveX.cs" />
     <Compile Include="ActiveX\RectangleActiveX\IRectangleActiveXEvents.cs" />
