@@ -37,7 +37,7 @@ namespace TechDotNetLib.Lab.Substances.WaterSteemProLib
         
 
         /// <summary>
-        /// Давление на линии насыщения как функция величин: температура 
+        /// PSAT Давление на линии насыщения как функция величин: температура 
         /// </summary>
         /// <param name="t">Температура, гр. С</param>
         /// <returns>Давление, Bar(abs)</returns>
@@ -47,7 +47,7 @@ namespace TechDotNetLib.Lab.Substances.WaterSteemProLib
         }
 
         /// <summary>
-        /// Температура на линии насыщения как функция величин: давление
+        /// TSAT Температура на линии насыщения как функция величин: давление
         /// </summary>
         /// <param name="p">Давление, Bar(abs) </param>
         /// <returns>Температура, гр. С </returns>

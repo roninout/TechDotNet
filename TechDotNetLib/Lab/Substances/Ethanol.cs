@@ -28,7 +28,7 @@ namespace TechDotNetLib.Lab.Substances
         #region methods
 
         //Метод для определения плотности вещества при 100% концентрации, кг/м3
-        public override double GetDensity(double temperature, double pressure)
+        public override double GetDensity(float temperature, float pressure)
         {
             double a0 = 0.0;
             double a1 = 0.0;
@@ -62,7 +62,7 @@ namespace TechDotNetLib.Lab.Substances
         }
 
         //Метод для определения теплоемкости вещества при 100% концентрации, кДж/кг/грК       
-        public override double GetCapacity(double temperature)
+        public override double GetCapacity(float temperature)
         {
             double a0 = 0.0;
             double a1 = 0.0;
@@ -94,6 +94,12 @@ namespace TechDotNetLib.Lab.Substances
             //y = a5*x^5 + a4*x^4 + a3*x^3 + a2*x^2 + a1*x + a0
             capacity = (a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0) * 0.001;
             return capacity;
+        }
+
+        //Метод для определения концентрации вещества в N-компонентной смеси
+        public override double GetContent(float temperature, float pressure)
+        {
+            return -1;
         }
 
         #endregion

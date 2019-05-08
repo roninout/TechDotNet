@@ -23,10 +23,14 @@ namespace TechDotNetLib.Lab.Substances
 
         #region Methods
         //Метод для определения плотности вещества при 100% концентрации
-        public abstract double GetDensity(double temperature, double pressure);
+        public abstract double GetDensity(float temperature, float pressure);
 
         //Метод для определения теплоемкости вещества при 100% концентрации
-        public abstract double GetCapacity(double temperature);
+        public abstract double GetCapacity(float temperature);
+
+        //Метод для определения концентрации вещества в N-компонентной смеси
+        public abstract double GetContent(float temperature, float pressure);
+
         #endregion
 
         public Substance(bool _isSteam)

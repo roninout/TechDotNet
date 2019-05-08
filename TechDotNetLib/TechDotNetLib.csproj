@@ -56,15 +56,29 @@
       <DependentUpon>RectangleActiveXUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Lab\Substances\Acetonitrile.cs" />
+    <Compile Include="Lab\Substances\Butadiene_1_2.cs" />
+    <Compile Include="Lab\Substances\Butadiene_1_3.cs" />
+    <Compile Include="Lab\Substances\Butene_1.cs" />
+    <Compile Include="Lab\Substances\Cis_2_Butene.cs" />
+    <Compile Include="Lab\Substances\Ethane.cs" />
     <Compile Include="Lab\Substances\Ethanol.cs" />
+    <Compile Include="Lab\Substances\Ethylene.cs" />
     <Compile Include="Lab\Substances\HydrohenPeroxyde.cs" />
+    <Compile Include="Lab\Substances\Isobutane.cs" />
+    <Compile Include="Lab\Substances\Methyl_Acetylene.cs" />
     <Compile Include="Lab\Substances\Mix.cs" />
     <Compile Include="Lab\Substances\Nitrogen.cs" />
+    <Compile Include="Lab\Substances\N_Butane.cs" />
+    <Compile Include="Lab\Substances\N_Pentane.cs" />
     <Compile Include="Lab\Substances\Oxygen.cs" />
+    <Compile Include="Lab\Substances\Propadiene.cs" />
+    <Compile Include="Lab\Substances\Propane.cs" />
     <Compile Include="Lab\Substances\Propylene.cs" />
     <Compile Include="Lab\Substances\PropyleneOxyde.cs" />
     <Compile Include="Lab\Substances\Substance.cs" />
+    <Compile Include="Lab\Substances\Trans_2_Butene.cs" />
     <Compile Include="Lab\Substances\UnknownSubstance.cs" />
+    <Compile Include="Lab\Substances\Vinylacetylene.cs" />
     <Compile Include="Lab\Substances\Water.cs" />
     <Compile Include="Lab\Substances\WaterSteemProLib\WspLib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

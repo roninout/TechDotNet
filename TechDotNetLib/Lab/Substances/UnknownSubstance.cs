@@ -25,12 +25,18 @@ namespace TechDotNetLib.Lab.Substances
 
         #region methods
 
-        public override double GetCapacity(double temperature)
+        public override double GetCapacity(float temperature)
         {
             return -1.0;
         }
 
-        public override double GetDensity(double temperature, double pressure)
+        public override double GetDensity(float temperature, float pressure)
+        {
+            return -1.0;
+        }
+
+        //Метод для определения концентрации вещества в N-компонентной смеси
+        public override double GetContent(float temperature, float pressure)
         {
             return -1.0;
         }
