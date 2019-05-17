@@ -240,7 +240,7 @@ namespace TechDotNetLib.Lab.Substances
 
 
         //Метод для расчета плотности смеси
-        public double GetDensity(float _temp, float _press)
+        public double GetDensity(float _temp, float? _press)
         {
             if (mixContent != null)
             {
@@ -250,9 +250,9 @@ namespace TechDotNetLib.Lab.Substances
                     if (pair.Key is UnknownSubstance)                    
                         return -1.0;                        
                     
-                    tmp_density += pair.Value * 0.01 / pair.Key.GetDensity(_temp, _press);
+                    tmp_density += pair.Value * 0.01 / pair.Key.GetDensity(_temp, _press ?? 0);
                 }
-                return 1 / tmp_density;
+                return (1 / tmp_density) * 10.0;
             }
             else
                 return 0.0;
@@ -279,23 +279,21 @@ namespace TechDotNetLib.Lab.Substances
         }
 
         //Метод для определения концентрации вещества в N-компонентной смеси
-        public double GetContent(float _temp, float _press)
+        public double GetContent(float _temp, float? _press, int numOfComponentToCalculate)
         {
+            double tmp_content = 0;
             if (MixContent != null)
-            {
-                double tmp_content = 0;
-                //Временно. Возвращает концентрацию последнего вещества в смеси.
-                foreach (KeyValuePair<Substance, double> pair in mixContent)
+            {                
+                try
                 {
-                    if (pair.Key is UnknownSubstance)
-                        return -1.0;
-
-                    tmp_content = pair.Key.GetContent(_temp, _press);
+                    tmp_content = mixContent.ElementAt(numOfComponentToCalculate).Key.GetContent(_temp, _press ?? 0);
                 }
-                return tmp_content;
-            }
-            else
-                return 0.0;
+                catch (Exception)
+                {                    
+                }     
+            }            
+
+            return tmp_content;
         }
 
     }
