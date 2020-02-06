@@ -16,7 +16,7 @@ namespace TechDotNetLib.Lab.Substances
         public override double MolarMass => molarMass;
 
         //Признак агрегатного состояния Фризиума в точке измерения
-        public override bool IsSteam => isSteam;       
+        public override bool IsSteam => isSteam;
 
         #endregion
         public Freezium(bool _isSteam = false) : base(_isSteam)
@@ -29,24 +29,34 @@ namespace TechDotNetLib.Lab.Substances
         //Метод для определения теплоемкости вещества при 100% концентрации, кДж/кг/грК     
         public override double GetCapacity(float temperature)
         {
+            //Считается теплоемкость исходя из разведенного фризиума до температуры -35 гр.С по таблице
+            //   t     c
+            //- 10    2.87
+            //- 15    2.86
+            //- 30    2.81
+            //- 35    2.79
+            //- 40    2.78
+
             double a0 = 0.0;
             double a1 = 0.0;
             double a2 = 0.0;
             double a3 = 0.0;
             double a4 = 0.0;
             double a5 = 0.0;
-            
+
             double capacity = 0.0;
 
             if (!this.isSteam)
             { //Жидкость
                 //y = a2*x^2 + a1*x + a0
-                a0 = 3.9407843;
-                a1 = 0.051424837;
-                a2 = 0.00073208556;
-                a3 = 0.0000040760547;
+                a0 = 2.8601143;
+                a1 = -0.0033390476;
+                a2 = -0.00027257143;
+                a3 = -3.4666667e-006;
                 a4 = 0.0;
                 a5 = 0.0;
+
+
             }
             else
             {//Газ
@@ -79,7 +89,7 @@ namespace TechDotNetLib.Lab.Substances
             {
                 a0 = 1.028116;
                 a1 = -0.0085052149;
-                a2 = -0.00005551797;                
+                a2 = -0.00005551797;
 
                 //y = a5*x^5 + a4*x^4 + a3*x^3 + a2*x^2 + a1*x + a0
                 density = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
