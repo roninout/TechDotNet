@@ -60,9 +60,11 @@
     <Compile Include="Lab\Substances\Butadiene_1_3.cs" />
     <Compile Include="Lab\Substances\Butene_1.cs" />
     <Compile Include="Lab\Substances\Cis_2_Butene.cs" />
+    <Compile Include="Lab\Substances\ContentCalculation\ContentCalc.cs" />
     <Compile Include="Lab\Substances\Ethane.cs" />
     <Compile Include="Lab\Substances\Ethanol.cs" />
     <Compile Include="Lab\Substances\Ethylene.cs" />
+    <Compile Include="Lab\Substances\Freezium.cs" />
     <Compile Include="Lab\Substances\HydrohenPeroxyde.cs" />
     <Compile Include="Lab\Substances\Isobutane.cs" />
     <Compile Include="Lab\Substances\Methyl_Acetylene.cs" />

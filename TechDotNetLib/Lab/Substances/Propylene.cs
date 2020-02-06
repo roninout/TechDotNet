@@ -6,7 +6,7 @@ namespace TechDotNetLib.Lab.Substances
     {
         #region fields & props
 
-        private const double molarMass = 42.081;    
+        private const double molarMass = 42.081;
 
         //Молярная масса пропилена
         public override double MolarMass => molarMass;
@@ -16,8 +16,8 @@ namespace TechDotNetLib.Lab.Substances
 
         #endregion
 
-        public Propylene(bool _isSteam) :  base(_isSteam)
-        {            
+        public Propylene(bool _isSteam) : base(_isSteam)
+        {
         }
 
         #region Methods
@@ -34,7 +34,7 @@ namespace TechDotNetLib.Lab.Substances
             double density = 0.0;
 
             if (!this.isSteam) //Жидкость
-            {                 
+            {
                 a0 = 544.49444;
                 a1 = -1.6067697;
                 a2 = -0.0062071911;
@@ -57,7 +57,7 @@ namespace TechDotNetLib.Lab.Substances
                 }
                 catch (ArithmeticException)
                 {
-                    
+
                 }
             }
 
@@ -81,8 +81,8 @@ namespace TechDotNetLib.Lab.Substances
                 //y = a2*x^2 + a1*x + a0
                 a0 = 2.4662773;
                 a1 = 0.0068441815;
-                a2 = 0.000029348162;              
-                
+                a2 = 0.000029348162;
+
             }
             else
             {//Газ
@@ -93,7 +93,7 @@ namespace TechDotNetLib.Lab.Substances
                 a3 = -0.000000034652143;
                 a4 = 1.7356035E-10;
                 a5 = -3.0549926E-13;
-               
+
             }
             capacity = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
             return capacity;
@@ -106,7 +106,7 @@ namespace TechDotNetLib.Lab.Substances
             double a0 = 0.0;
             double a1 = 0.0;
             double a2 = 0.0;
-            double a3 = 0.0;            
+            double a3 = 0.0;
 
             double pressureSaturation = 0.0;
 
@@ -120,11 +120,11 @@ namespace TechDotNetLib.Lab.Substances
                 {
                     pressureSaturation = a0 / Math.Pow((1 + Math.Exp(a1 - a2 * temperature)), (1 / a3));
                 }
-                catch(ArithmeticException)
+                catch (ArithmeticException)
                 {
-                    
+
                 }
-                
+
             }
             else if (temperature >= -23.0)
             {
@@ -140,8 +140,21 @@ namespace TechDotNetLib.Lab.Substances
 
         //Метод для определения концентрации вещества в N-компонентной смеси
         public override double GetContent(float temperature, float pressure)
-        {
-            return -1;
+        {           
+            double content = 0.0;
+
+            //Газ
+
+            double a0 = 0.8751331;
+            double a1 = -0.0074854839;
+            double a2 = -0.00014890413;
+            double a3 = -0.00000087120511;
+            double a4 = 0.0000000083535454;
+            double a5 = 0.0;
+
+
+            content = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
+            return Math.Max(0.0, content * 100.0);
         }
 
         #endregion

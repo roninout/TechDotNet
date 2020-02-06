@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechDotNetLib.Lab.Substances.WaterSteemProLib;
+using TechDotNetLib.Lab.Substances.ContentCalculation;
 
 namespace TechDotNetLib.Lab.Substances
 {
@@ -16,13 +18,14 @@ namespace TechDotNetLib.Lab.Substances
         private double[] contents;      //Величины содержаний компонентов в смеси, %
 
         //Свойство для обращения к словарю с компонентами из внешнего кода
-        public Dictionary<Substance, double> MixContent {
+        public Dictionary<Substance, double> MixContent
+        {
             get
             {
                 if (mixContent != null)
-                    return mixContent;     
+                    return mixContent;
                 else
-                    return new Dictionary<Substance, double> ();
+                    return new Dictionary<Substance, double>();
             }
         }
         public Mix()
@@ -32,22 +35,22 @@ namespace TechDotNetLib.Lab.Substances
 
 
         public Mix(string[] _components, double[] _contents) : this()
-        {            
+        {
             components = _components;
             contents = _contents;
-              
+
             this.InitalizeSubstance(components, contents);
         }
 
         public Mix(string[] _components) : this()
-        {            
+        {
             components = _components;
             contents = new double[_components.Length];
-            contents.Select(c => { c = 0; return c; });    
+            contents.Select(c => { c = 0; return c; });
 
             this.InitalizeSubstance(components, contents);
         }
-        
+
 
         private void AddComponent(Substance substance, double content)
         {
@@ -55,7 +58,7 @@ namespace TechDotNetLib.Lab.Substances
             {
                 mixContent.Add(substance, content);
             }
-                
+
         }
 
         //Метод инициализации словаря компон
@@ -67,9 +70,9 @@ namespace TechDotNetLib.Lab.Substances
                 switch (_components[i])
                 {
                     //Ацетонитрил
-                    case "ACN":               
+                    case "ACN":
                         sub = new Acetonitrile(false);      //жидкость
-                        break;  
+                        break;
                     case "ACNS":
                         sub = new Acetonitrile(true);       //газ
                         break;
@@ -227,16 +230,20 @@ namespace TechDotNetLib.Lab.Substances
                     case "VinylacetyleneS":
                         sub = new Vinylacetylene(true);      //газ
                         break;
+                    //Freezium
+                    case "Freezium":
+                        sub = new Freezium(false);     //жидкость
+                        break;
 
 
                     default:
                         //Неизветсное вещество
-                        sub = new UnknownSubstance();       
+                        sub = new UnknownSubstance();
                         break;
                 }
                 mixContent.Add(sub, _contents[i]);
-            }            
-        } 
+            }
+        }
 
 
         //Метод для расчета плотности смеси
@@ -244,32 +251,32 @@ namespace TechDotNetLib.Lab.Substances
         {
             if (mixContent != null)
             {
-                double tmp_density = 0; 
+                double tmp_density = 0;
                 foreach (KeyValuePair<Substance, double> pair in mixContent)
                 {
-                    if (pair.Key is UnknownSubstance)                    
-                        return -1.0;                        
-                    
+                    if (pair.Key is UnknownSubstance)
+                        return -1.0;
+
                     tmp_density += pair.Value * 0.01 / pair.Key.GetDensity(_temp, _press ?? 0);
                 }
                 return (1 / tmp_density) * 10.0;
             }
             else
                 return 0.0;
-            
+
         }
 
         //Метод для расчета теплоемкости смеси
         public double GetCapacity(float _temp, float? _press)
         {
             if (MixContent != null)
-            {                
+            {
                 double tmp_capacity = 0; ;
                 foreach (KeyValuePair<Substance, double> pair in mixContent)
                 {
-                    if (pair.Key is UnknownSubstance)                    
+                    if (pair.Key is UnknownSubstance)
                         return -1.0;
-                    
+
                     tmp_capacity += pair.Value * 0.01 * pair.Key.GetCapacity(_temp);
                 }
                 return tmp_capacity * 1000.0;
@@ -283,18 +290,75 @@ namespace TechDotNetLib.Lab.Substances
         {
             double tmp_content = 0;
             if (MixContent != null)
-            {                
+            {
                 try
                 {
                     tmp_content = mixContent.ElementAt(numOfComponentToCalculate).Key.GetContent(_temp, _press ?? 0);
                 }
                 catch (Exception)
-                {                    
-                }     
-            }            
+                {
+                }
+            }
 
             return tmp_content;
         }
 
+        public double[] GetContent(float _temp, float _press, int configurationCode)
+        {
+            //Инициализируем начальный массив содержаний по длине состава смеси
+            double[] tmp_content = new double[mixContent.Count];
+
+            for (int i = 0; i < tmp_content.Length; i++)
+            {
+                tmp_content[i] = -1.0;
+            }
+            Substance component_1 = mixContent.ElementAt(0).Key;
+            Substance component_2 = mixContent.ElementAt(1).Key;
+            Substance component_3 = mixContent.ElementAt(2).Key;
+
+
+            Func<float, float, int, double[]> CalculateContentFunc = null;            
+
+            #region Calculation Content for different Pairs
+            //Пара Ацетонитрил - Вода
+            if (component_1 is Acetonitrile && component_2 is Water)            
+                CalculateContentFunc = ((t, p, c) => ContentCalc.ACN_Water_Content(t, p));
+
+            //Пара Вода -Ацетонитрил
+            if (component_1 is Water && component_2 is Acetonitrile)
+                CalculateContentFunc = ((t, p, c) => ContentCalc.Water_ACN_Content(t, p));
+
+
+            //Пара ПропиленОксид - Пропилен
+            if (component_1 is PropyleneOxyde && component_2 is Propylene)            
+                CalculateContentFunc = ((t, p, c) => ContentCalc.PO_P_Content(t, p));
+
+            //Пара Пропилен - ПропиленОксид
+            if (component_1 is Propylene && component_2 is PropyleneOxyde)
+                CalculateContentFunc = ((t, p, c) => ContentCalc.P_PO_Content(t, p));
+
+            //Трио Ацетонитрил - Вода - Пропилен Оксид
+            if (component_1 is Acetonitrile && component_2 is Water && component_3 is PropyleneOxyde)
+                CalculateContentFunc = ((t, p, c) => ContentCalc.ACN_Water_PO_Content(t, p, c));
+            
+               
+
+            //Трио Пропилен Оксид - Вода - Ацетонитрил
+            if (component_1 is PropyleneOxyde && component_2 is Water && component_3 is Acetonitrile)            
+                CalculateContentFunc = ((t, p, c) => ContentCalc.PO_Water_ACN_Content(t, p, c));          
+
+            #endregion
+
+
+            //Вызываем метод для выбранной пары компонентов
+            if (CalculateContentFunc != null)
+                Array.Copy(CalculateContentFunc.Invoke(_temp, _press, configurationCode), 0, tmp_content, 0, 3);
+
+            return tmp_content;
+        }
+        
+
     }
+
+
 }
