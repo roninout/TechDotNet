@@ -87,7 +87,9 @@
     <Compile Include="ActiveX\RectangleActiveX\IRectangleActiveX.cs" />
     <Compile Include="ActiveX\RectangleActiveX\IRectangleActiveXEvents.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ActiveX\PowerActiveX\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ActiveX\RectangleActiveX\RectangleActiveXForm.resx">
       <DependentUpon>RectangleActiveXForm.cs</DependentUpon>
