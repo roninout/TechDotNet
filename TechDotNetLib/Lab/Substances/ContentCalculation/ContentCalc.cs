@@ -40,7 +40,7 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
         {
             //deviation - Процент отклонения входящего давления от ближайшей реперной точки слева 0.0 - 1.0
             //Определяем номер первого элемента в массиве базовых давлений, который больше входного давления 
-            int numOfRange;            
+            int numOfRange;
 
             for (numOfRange = 0; numOfRange < pressures.Count; numOfRange++)
             {
@@ -49,7 +49,7 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
                 {
                     if (numOfRange == 0)
                         deviation = 0.0;
-                    else                        
+                    else
                         deviation = 1.0 - ((pressures[numOfRange] - pressures[numOfRange - 1]) - (pressure - pressures[numOfRange - 1])) / (pressures[numOfRange] - pressures[numOfRange - 1]);
                     return numOfRange;
                 }
@@ -95,25 +95,37 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
             #endregion
 
             #region Coefs for Polynom for High Pressure
+            //Правая часть таблицы содержаний T05
+            //coefListHighPressure.Add(new CoefSet { a0 = -4623.7683, a1 = 101.39225, a2 = -0.21853782, a3 = -0.010028872, a4 = 0.000089477063, a5 = -0.00000022583619 }); //0
+            //coefListHighPressure.Add(new CoefSet { a0 = -6530.9838, a1 = 175.11241, a2 = -1.3803267, a3 = -0.00067773114, a4 = 0.000051001707, a5 = -0.00000016113319 }); //1
+            //coefListHighPressure.Add(new CoefSet { a0 = -5698.651, a1 = 142.12601, a2 = -0.88291432, a3 = -0.0042040401, a4 = 0.000062429435, a5 = -0.00000017370857 }); //2
+            //coefListHighPressure.Add(new CoefSet { a0 = -3366.7913, a1 = 49.531596, a2 = 0.56380186, a3 = -0.015307128, a4 = 0.00010418667, a5 = -0.00000023503169 }); //3
+            //coefListHighPressure.Add(new CoefSet { a0 = -5782.2063, a1 = 147.00324, a2 = -1.0307198, a3 = -0.0021042928, a4 = 0.000048935438, a5 = -0.00000014170429 }); //4
+            //coefListHighPressure.Add(new CoefSet { a0 = -5749.8125, a1 = 144.84776, a2 = -1.0030304, a3 = -0.0021140122, a4 = 0.000047525121, a5 = -0.00000013620981 }); //5
+            //coefListHighPressure.Add(new CoefSet { a0 = -1311.3499, a1 = -32.537868, a2 = 1.8109511, a3 = -0.02426936, a4 = 0.00013411085, a5 = -0.00000027058039 }); //6
+            //coefListHighPressure.Add(new CoefSet { a0 = -4882.7993, a1 = 103.90858, a2 = -0.29176898, a3 = -0.0079274534, a4 = 0.000070060799, a5 = -0.00000016932529 }); //7
+            //coefListHighPressure.Add(new CoefSet { a0 = -5179.9938, a1 = 116.64647, a2 = -0.5270818, a3 = -0.0056659286, a4 = 0.000059051373, a5 = -0.00000014794401 }); //8
+            //coefListHighPressure.Add(new CoefSet { a0 = -7811.578, a1 = 223.40104, a2 = -2.2721758, a3 = 0.0086797137, a4 = -0.00000016526893, a5 = -0.000000049879829 }); //9 
+            //coefListHighPressure.Add(new CoefSet { a0 = -916.77916, a1 = -32.245825, a2 = 1.4999073, a3 = -0.01899434, a4 = 0.00010073274, a5 = -0.00000019603144 }); //10     
 
-            coefListHighPressure.Add(new CoefSet { a0 = -4623.7683, a1 = 101.39225, a2 = -0.21853782, a3 = -0.010028872, a4 = 0.000089477063, a5 = -0.00000022583619 }); //0
-            coefListHighPressure.Add(new CoefSet { a0 = -6530.9838, a1 = 175.11241, a2 = -1.3803267, a3 = -0.00067773114, a4 = 0.000051001707, a5 = -0.00000016113319 }); //1
-            coefListHighPressure.Add(new CoefSet { a0 = -5698.651, a1 = 142.12601, a2 = -0.88291432, a3 = -0.0042040401, a4 = 0.000062429435, a5 = -0.00000017370857 }); //2
-            coefListHighPressure.Add(new CoefSet { a0 = -3366.7913, a1 = 49.531596, a2 = 0.56380186, a3 = -0.015307128, a4 = 0.00010418667, a5 = -0.00000023503169 }); //3
-            coefListHighPressure.Add(new CoefSet { a0 = -5782.2063, a1 = 147.00324, a2 = -1.0307198, a3 = -0.0021042928, a4 = 0.000048935438, a5 = -0.00000014170429 }); //4
-            coefListHighPressure.Add(new CoefSet { a0 = -5749.8125, a1 = 144.84776, a2 = -1.0030304, a3 = -0.0021140122, a4 = 0.000047525121, a5 = -0.00000013620981 }); //5
-            coefListHighPressure.Add(new CoefSet { a0 = -1311.3499, a1 = -32.537868, a2 = 1.8109511, a3 = -0.02426936, a4 = 0.00013411085, a5 = -0.00000027058039 }); //6
-            coefListHighPressure.Add(new CoefSet { a0 = -4882.7993, a1 = 103.90858, a2 = -0.29176898, a3 = -0.0079274534, a4 = 0.000070060799, a5 = -0.00000016932529 }); //7
-            coefListHighPressure.Add(new CoefSet { a0 = -5179.9938, a1 = 116.64647, a2 = -0.5270818, a3 = -0.0056659286, a4 = 0.000059051373, a5 = -0.00000014794401 }); //8
-            coefListHighPressure.Add(new CoefSet { a0 = -7811.578, a1 = 223.40104, a2 = -2.2721758, a3 = 0.0086797137, a4 = -0.00000016526893, a5 = -0.000000049879829 }); //9 
-            coefListHighPressure.Add(new CoefSet { a0 = -916.77916, a1 = -32.245825, a2 = 1.4999073, a3 = -0.01899434, a4 = 0.00010073274, a5 = -0.00000019603144 }); //10     
 
-
+            //Левая часть таблицы содержаний T05
+            coefListHighPressure.Add(new CoefSet { a0 = -15540.734, a1 = 622.91925, a2 = -9.9689905, a3 = 0.07962754, a4 = -0.00031743681, a5 = 5.0523538e-007 }); //0
+            coefListHighPressure.Add(new CoefSet { a0 = -4064.9996, a1 = 166.6272, a2 = -2.7179244, a3 = 0.022063316, a4 = -8.9150054e-005, a5 = 1.4344192e-007 }); //1            
+            coefListHighPressure.Add(new CoefSet { a0 = -8217.1872, a1 = 327.68716, a2 = -5.2125024, a3 = 0.041348753, a4 = -0.00016357198, a5 = 2.5813121e-007 }); //2
+            coefListHighPressure.Add(new CoefSet { a0 = 22483.091, a1 = -863.49565, a2 = 13.258699, a3 = -0.10173687, a4 = 0.00039012815, a5 = -5.9814607e-007 }); //3
+            coefListHighPressure.Add(new CoefSet { a0 = 10844.666, a1 = -409.23559, a2 = 6.1761627, a3 = -0.046596765, a4 = 0.00017576418, a5 = -2.652234e-007 }); //4
+            coefListHighPressure.Add(new CoefSet { a0 = 6817.139, a1 = -252.27909, a2 = 3.7343077, a3 = -0.027637908, a4 = 0.00010229644, a5 = -1.5153786e-007 }); //5
+            coefListHighPressure.Add(new CoefSet { a0 = 17360.402, a1 = -650.3977, a2 = 9.7434126, a3 = -0.072955402, a4 = 0.00027304976, a5 = -4.0869368e-007 }); //6
+            coefListHighPressure.Add(new CoefSet { a0 = 3330.7822, a1 = -117.40557, a2 = 1.6532906, a3 = -0.011626555, a4 = 4.0852774e-005, a5 = -5.7434088e-008 }); //7
+            coefListHighPressure.Add(new CoefSet { a0 = 4370.1828, a1 = -155.19241, a2 = 2.2034065, a3 = -0.015635359, a4 = 5.5474057e-005, a5 = -7.8783641e-008 }); //8
+            coefListHighPressure.Add(new CoefSet { a0 = -9477.0398, a1 = 360.66645, a2 = -5.4752159, a3 = 0.041451305, a4 = -0.00015650377, a5 = 2.3573579e-007 }); //9 
+            coefListHighPressure.Add(new CoefSet { a0 = 5670.9176, a1 = -200.21628, a2 = 2.8264646, a3 = -0.01994419, a4 = 7.0364631e-005, a5 = -9.9351675e-008 }); //10     
 
             #endregion
             //Определяем по формулам какого давления (Low Pressure - Колонна Т04 или High Pressure - Колонна Т05) производим расчеты
-            var pressureList = _press < 2.0 ? lowPressureList : highPressureList;
-            var coefList = _press < 2.0 ? coefListLowPressure : coefListHighPressure;
+            var pressureList = _press < 2.5 ? lowPressureList : highPressureList;
+            var coefList = _press < 2.5 ? coefListLowPressure : coefListHighPressure;
 
             //Определяем номер формулы (по давлению - линейная интерполяция)
             var numOfRange = GetNumOfFormula(pressureList, _press, out double deviation);
@@ -122,13 +134,29 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
             //Вичисляем содержание
             //Если переданное давление ниже минимального в массиве -
             if (numOfRange == 0)
+            {
                 //Считаем по формуле №0
-                content = getPolynomValue(_temp, coefList[0]);
+                //content = getPolynomValue(_temp, coefList[0]);
+
+                //01.04.2020 - Считаем по коэффициенту наклона прямой вниз влево
+                var y1 = getPolynomValue(_temp, coefList[0]);
+                var y2 = getPolynomValue(_temp, coefList[1]);
+                content = y1 - (y2 - Math.Abs(y1)) * (pressureList[0] - _press) / (pressureList[1] - pressureList[0]);
+            }
+
 
             //Если переданное давление - больше максимального в массиве - 
             else if (numOfRange == pressureList.Count)
+            {
                 //Считаем по формуле №pressureList.Count - 1
-                content = getPolynomValue(_temp, coefList[pressureList.Count - 1]);
+                //content = getPolynomValue(_temp, coefList[pressureList.Count - 1]);
+
+                //01.04.2020 - Считаем по коэффициенту наклона прямой вниз влево
+                var y1 = getPolynomValue(_temp, coefList[pressureList.Count - 2]);
+                var y2 = getPolynomValue(_temp, coefList[pressureList.Count - 1]);                
+                content = y2 + (y2 - Math.Abs(y1)) * (_press - pressureList[pressureList.Count - 1]) / (pressureList[pressureList.Count - 1] - pressureList[pressureList.Count - 2]);
+            }
+                
 
             //Если попали в точку базового давления-
             else if (1 - deviation < 0.1)
@@ -146,9 +174,9 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
             var tmp_content = new double[3];
 
             //tmp_content[0] = 100.0 * (_temp - WspLib.Tsat((float)_press)) * 100 / (1670.409 / (5.37229 - Math.Log10((float)(_press) * 0.98717)) - 232.959 - WspLib.Tsat((float)_press));
-            tmp_content[0] = Math.Max(0,  Math.Min(100.0, content * 100.0) * 100.0);
+            tmp_content[0] = Math.Max(0, Math.Min(100.0, content * 100.0) * 100.0);
             tmp_content[1] = 10000.0 - tmp_content[0];
-            
+
 
             return tmp_content;
         }
@@ -177,13 +205,13 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
 
             #region Coefs for Polynom for Low Pressure
 
-            coefList.Add(new CoefSet { a0 = 0.27015091,  a1 = 0.013587132,  a2 = 0.00022833994, a3 = 0.00000080966815, a4 = -0.000000018938742,  a5 = -0.00000000018159973  }); //0
-            coefList.Add(new CoefSet { a0 = 0.19911062,  a1 = 0.010672565,  a2 = 0.00019342888, a3 = 0.00000099556486, a4 = -0.000000011842013,  a5 = -0.00000000014420463  }); //1
-            coefList.Add(new CoefSet { a0 = 0.15316527,  a1 = 0.0087154892, a2 = 0.00016672003, a3 = 0.0000010343219,  a4 = -0.0000000076751746, a5 = -0.0000000001183291   }); //2
-            coefList.Add(new CoefSet { a0 = 0.12100836,  a1 = 0.0073119613, a2 = 0.00014603952, a3 = 0.0000010179438,  a4 = -0.0000000050740111, a5 = -0.000000000099363734 }); //3
-            coefList.Add(new CoefSet { a0 = 0.1123328,   a1 = 0.0069282581, a2 = 0.00014016119, a3 = 0.0000010073206,  a4 = -0.000000004420446,  a5 = -0.000000000094334086 }); //4
+            coefList.Add(new CoefSet { a0 = 0.27015091, a1 = 0.013587132, a2 = 0.00022833994, a3 = 0.00000080966815, a4 = -0.000000018938742, a5 = -0.00000000018159973 }); //0
+            coefList.Add(new CoefSet { a0 = 0.19911062, a1 = 0.010672565, a2 = 0.00019342888, a3 = 0.00000099556486, a4 = -0.000000011842013, a5 = -0.00000000014420463 }); //1
+            coefList.Add(new CoefSet { a0 = 0.15316527, a1 = 0.0087154892, a2 = 0.00016672003, a3 = 0.0000010343219, a4 = -0.0000000076751746, a5 = -0.0000000001183291 }); //2
+            coefList.Add(new CoefSet { a0 = 0.12100836, a1 = 0.0073119613, a2 = 0.00014603952, a3 = 0.0000010179438, a4 = -0.0000000050740111, a5 = -0.000000000099363734 }); //3
+            coefList.Add(new CoefSet { a0 = 0.1123328, a1 = 0.0069282581, a2 = 0.00014016119, a3 = 0.0000010073206, a4 = -0.000000004420446, a5 = -0.000000000094334086 }); //4
             coefList.Add(new CoefSet { a0 = 0.097244104, a1 = 0.0062562339, a2 = 0.00012966385, a3 = 0.00000098138507, a4 = -0.0000000033762105, a5 = -0.000000000084930748 }); //5
-            coefList.Add(new CoefSet { a0 = 0.078967415, a1 = 0.0054329712, a2 = 0.00011640761, a3 = 0.00000093950915, a4 = -0.0000000022392263, a5 = -0.00000000007364854  }); //6   
+            coefList.Add(new CoefSet { a0 = 0.078967415, a1 = 0.0054329712, a2 = 0.00011640761, a3 = 0.00000093950915, a4 = -0.0000000022392263, a5 = -0.00000000007364854 }); //6   
 
             #endregion
 
@@ -314,7 +342,7 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
                     waterContent = 0.0;
                     break;
             }
-            
+
 
 
             //Определяем номер формулы (по давлению - линейная интерполяция)
@@ -347,8 +375,8 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
                 content = tmpcount_1 + (tmpcount_2 - tmpcount_1) * deviation;
             }
 
-            var tmp_content = new double[3]; 
-           
+            var tmp_content = new double[3];
+
             //tmp_content[0] = Math.Max(0, Math.Min(100.0, content * 100.0) * 100.0);      //ACN
             tmp_content[0] = Math.Max(0, Math.Min(100.0 - waterContent, content * 100.0) * 100.0); //ACN
             tmp_content[1] = Math.Min(waterContent * 100.0, (10000.0 - tmp_content[0]));          //Water
