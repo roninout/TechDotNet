@@ -33,8 +33,25 @@ namespace TechDotNetLib.Lab.Substances.WaterSteemProLib
         [DllImport("okawsp6.dll")]
         public static extern double wspTSP(double p);
 
+        /// <summary>
+        /// Плотность воды на линии насыщения
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns>Плотность воды на линии насыщения</returns>
+        [DllImport("okawsp6.dll")]
+        public static extern double wspDSWT(double t);
+
+
+        /// <summary>
+        /// Плотность пара на линии насыщения
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns>Плотность пара на линии насыщения</returns>
+        [DllImport("okawsp6.dll")]
+        public static extern double wspDSST(double t);
+
         #endregion
-        
+
 
         /// <summary>
         /// PSAT Давление на линии насыщения как функция величин: температура 
@@ -55,6 +72,8 @@ namespace TechDotNetLib.Lab.Substances.WaterSteemProLib
         {            
             return wspTSP(p * 100_000) - 273.15;
         }
+
+
 
         
 

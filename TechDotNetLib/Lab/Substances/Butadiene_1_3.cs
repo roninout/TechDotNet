@@ -74,9 +74,7 @@ namespace TechDotNetLib.Lab.Substances
             double a0 = 0.0;
             double a1 = 0.0;
             double a2 = 0.0;
-            double a3 = 0.0;
-            double a4 = 0.0;
-            double a5 = 0.0;
+            double a3 = 0.0;            
 
             double density = 0.0;
 

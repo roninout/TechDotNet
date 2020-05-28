@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechDotNetLib.Lab.Substances.WaterSteemProLib;
 
 namespace TechDotNetLib.Lab.Substances
 {
@@ -45,7 +46,8 @@ namespace TechDotNetLib.Lab.Substances
                 a3 = 0.000070624106;
                 a4 = -0.00000045396011;
                 a5 = 1.2999754E-09;
-                density = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
+                //density = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
+                density = WspLib.wspDSWT(temperature + 273.15);
             }
             else
             {
@@ -55,7 +57,8 @@ namespace TechDotNetLib.Lab.Substances
 
                 try
                 {
-                    density = pressure * Math.Pow(10, 2) / (R / MolarMass) / (temperature + 273.15);
+                    //density = pressure * Math.Pow(10, 2) / (R / MolarMass) / (temperature + 273.15);
+                    density = WspLib.wspDSST(temperature + 273.15);
                 }
                 catch (ArithmeticException)
                 {
