@@ -208,10 +208,10 @@ namespace TechDotNetLib.Lab.Substances
                         break;
 
                     //Propane
-                    case "Propane":
+                    case "Pr":
                         sub = new Propane(false);       //жидкость
                         break;
-                    case "PropaneS":
+                    case "PrS":
                         sub = new Propane(true);        //газ
                         break;
 
