@@ -39,14 +39,26 @@ namespace TechDotNetLib.Lab.Substances
 
             if (!this.isSteam)
             {   //Жидкость
-                //y = a0 + exp b/t + c + dt + et^2
-                a0 = 37840.4;
-                a1 = -445.5789;
-                a2 = 11.83871;
-                a3 = 0.000653764;
-                a4 = -2.200137E-07;
-                a5 = 0;
-                capacity = a0 + Math.Exp(a1 / temperature + a2 + a3 * temperature + a4 * Math.Pow(temperature, 2));
+
+                //Reciprocal Quadratic: y = 1 / (a + bx + cx ^ 2)
+
+                //3rd degree Polynomial Fit:  y = a + bx + cx ^ 2 + dx ^ 3...	
+                //Coefficient Data:	
+                //a = 2.4507357
+                //b = 0.007114219
+                //c = 6.59E-05
+                //d = 4.84E-07
+
+                a0 = 2.4507357;
+                a1 = 0.007114219;
+                a2 = 6.59E-05;
+                a3 = 4.84E-07;
+
+
+
+                //capacity = a0 + Math.Exp(a1 / temperature + a2 + a3 * temperature + a4 * Math.Pow(temperature, 2));
+                //capacity = 1 / (a0 + a1 * temperature + a2 * Math.Pow(temperature, 2));
+                capacity = a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0; 
             }
             else
             {//Газ

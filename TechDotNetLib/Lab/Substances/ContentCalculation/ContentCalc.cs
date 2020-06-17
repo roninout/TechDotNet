@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TechDotNetLib.Lab.Substances.WaterSteemProLib;
 
+
 namespace TechDotNetLib.Lab.Substances.ContentCalculation
 {
     //Структура для сохранения коэффициентов полинома для расчета содержаний
@@ -165,6 +166,7 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
                 //01.04.2020 - Считаем по коэффициенту наклона прямой вниз влево
                 var y1 = getPolynomValue(_temp, coefList[0]);
                 var y2 = getPolynomValue(_temp, coefList[1]);
+                
                 content = y1 - (y2 - Math.Abs(y1)) * (pressureList[0] - _press) / (pressureList[1] - pressureList[0]);
             }
 
@@ -304,7 +306,12 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
 
             //Для содержания воды в смеси ACN-WATER-PO = 0%
             List<CoefSet> coefListWater_00 = new List<CoefSet>();
-            List<double> pressureListWater_00 = new List<double> { 1.8, 1.9, 2.0, 2.1, 2.2 };
+            List<double> pressureListWater_00 = new List<double> { 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3.0 };
+
+            //Минимальные и максимальные ограничения температур для каждого набора графиков
+            //var mimaxTempsWater18 = new Dictionary<float, float>();
+            
+
 
 
 
@@ -316,6 +323,15 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
             coefListWater_18.Add(new CoefSet { a0 = -4412.4114, a1 = 264.42713, a2 = -6.3070292, a3 = 0.074889926, a4 = -0.00044296613, a5 = 0.0000010447785 }); //3
             coefListWater_18.Add(new CoefSet { a0 = 3750.0803, a1 = -173.33512, a2 = 3.0948466, a3 = -0.026205728, a4 = 0.0001013694, a5 = -0.00000012954502 }); //4
 
+            //Минимальные и максимальные т-ры для текущего массива графиков
+            var mimaxTempsWater18 = new Tuple<float, float>[] {
+              new Tuple<float, float>(78.934f, 94.521f),
+              new Tuple<float, float>(80.841f, 96.245f),
+              new Tuple<float, float>(82.668f, 97.895f),
+              new Tuple<float, float>(84.422f, 99.479f),
+              new Tuple<float, float>(86.109f, 101.003f)
+            };
+                       
             #endregion
 
             #region Coefs for Mix with 16% of Water
@@ -326,21 +342,89 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
             coefListWater_16.Add(new CoefSet { a0 = -301.52008, a1 = 19.433799, a2 = -0.49994249, a3 = 0.00641627, a4 = -0.000041092852, a5 = 0.0000001051759 }); //3
             coefListWater_16.Add(new CoefSet { a0 = -341.94096, a1 = 21.587562, a2 = -0.5440085, a3 = 0.0068398259, a4 = -0.000042917995, a5 = 0.00000010762142 }); //4   
 
+            //Минимальные и максимальные т-ры для текущего массива графиков
+            var mimaxTempsWater16 = new Tuple<float, float>[] { 
+              new Tuple<float, float>(60.217f, 93.549f),
+              new Tuple<float, float>(62.023f, 95.302f),
+              new Tuple<float, float>(63.756f, 96.982f),
+              new Tuple<float, float>(65.423f, 98.595f),
+              new Tuple<float, float>(67.029f, 100.146f)              
+            };
+
             #endregion
 
             #region Coefs for Mix with 0% of Water
 
-            coefListWater_00.Add(new CoefSet { a0 = -43.990727, a1 = 4.9015144, a2 = -0.21829606, a3 = 0.0048535915, a4 = -0.000053899841, a5 = 0.00000024014093 }); //0
-            coefListWater_00.Add(new CoefSet { a0 = -48.348694, a1 = 5.163219, a2 = -0.22042205, a3 = 0.0046986542, a4 = -0.000050038014, a5 = 0.00000021379985 }); //1
-            coefListWater_00.Add(new CoefSet { a0 = -52.496316, a1 = 5.3923446, a2 = -0.2214502, a3 = 0.0045418566, a4 = -0.000046546657, a5 = 0.00000019140456 }); //2
-            coefListWater_00.Add(new CoefSet { a0 = -56.632491, a1 = 5.6115767, a2 = -0.22232938, a3 = 0.0043997938, a4 = -0.000043515338, a5 = 0.00000017269654 }); //3
-            coefListWater_00.Add(new CoefSet { a0 = -60.850994, a1 = 5.8308108, a2 = -0.22341791, a3 = 0.0042764714, a4 = -0.000040915957, a5 = 0.00000015708915 }); //4 
+            coefListWater_00.Add(new CoefSet { a0 = 0.74768604, a1 = -0.064220695, a2 = 0.0018871571, a3 = -0.000023620005, a4 = 0.00000012404205, a5 = 0 }); //1.2
+
+            coefListWater_00.Add(new CoefSet { a0 = 0.87432857, a1 = -0.070872579, a2 = 0.0019838392, a3 = -0.000023834951, a4 = 0.00000011926883, a5 = 0 }); //1.3
+
+            coefListWater_00.Add(new CoefSet { a0 = 1.0051601, a1 = -0.07742134, a2 = 0.002075139, a3 = -0.000024018483, a4 = 0.00000011506437, a5 = 0 }); //1.4
+
+            coefListWater_00.Add(new CoefSet { a0 = 1.1388573, a1 = -0.083819723, a2 = 0.0021605333, a3 = -0.000024165601, a4 = 0.0000001112833, a5 = 0 }); //1.5
+
+            coefListWater_00.Add(new CoefSet { a0 = 1.2746568, a1 = -0.090057227, a2 = 0.0022403837, a3 = -0.000024281028, a4 = 0.00000010785174, a5 = 0 }); //1.6
+            
+            coefListWater_00.Add(new CoefSet { a0 = 1.4097618, a1 = -0.095997923, a2 = 0.0023121725, a3 = -0.000024340861, a4 = 0.00000010461291, a5 = 0 }); //1.7
+
+            coefListWater_00.Add(new CoefSet { a0 = 1.5510689, a1 = -0.10207368, a2 = 0.0023856366, a3 = -0.000024437116, a4 = 0.00000010183059, a5 = 0 }); //1.8
+
+            coefListWater_00.Add(new CoefSet { a0 = 1.6910549, a1 = -0.10786575, a2 = 0.0024520368, a3 = -0.000024487053, a4 = 0.000000099171871, a5 = 0 }); //1.9
+
+            coefListWater_00.Add(new CoefSet { a0 = 1.8311243, a1 = -0.11348066, a2 = 0.002513992, a3 = -0.000024515219, a4 = 0.000000096685302, a5 = 0 }); //2.0
+            
+            coefListWater_00.Add(new CoefSet { a0 = 1.9731879, a1 = -0.11903795, a2 = 0.0025741012, a3 = -0.000024543926, a4 = 0.000000094413025, a5 = 0 }); //2.1
+            
+            coefListWater_00.Add(new CoefSet { a0 = 2.1133017, a1 = -0.12434351, a2 = 0.0026287246, a3 = -0.000024541074, a4 = 0.000000092226068, a5 = 0 }); //2.2
+            
+            coefListWater_00.Add(new CoefSet { a0 = 2.2583756, a1 = -0.12976638, a2 = 0.0026850748, a3 = -0.000024566861, a4 = 0.000000090291345, a5 = 0 }); //2.3
+            
+            coefListWater_00.Add(new CoefSet { a0 = 2.4031439, a1 = -0.13504533, a2 = 0.0027382607, a3 = -0.00002457943, a4 = 0.000000088459665, a5 = 0 }); //2.4
+            
+            coefListWater_00.Add(new CoefSet { a0 = 2.5459348, a1 = -0.14010936, a2 = 0.0027871228, a3 = -0.000024569234, a4 = 0.000000086688275, a5 = 0 }); //2.5
+            
+            coefListWater_00.Add(new CoefSet { a0 = 2.6896542, a1 = -0.14511399, a2 = 0.0028346691, a3 = -0.000024560603, a4 = 0.00000008503858, a5 = 0 }); //2.6
+            
+            coefListWater_00.Add(new CoefSet { a0 = 2.8324605, a1 = -0.14997445, a2 = 0.0028793662, a3 = -0.000024540053, a4 = 0.000000083456682, a5 = 0 }); //2.7
+
+            coefListWater_00.Add(new CoefSet { a0 = 2.9787968, a1 = -0.15490882, a2 = 0.0029251426, a3 = -0.000024537848, a4 = 0.000000082020857, a5 = 0 }); //2.8
+
+            coefListWater_00.Add(new CoefSet { a0 = 3.121333, a1 = -0.15957547, a2 = 0.0029660451, a3 = -0.000024507547, a4 = 0.000000080589501, a5 = 0 }); //2.9
+
+            coefListWater_00.Add(new CoefSet { a0 = 3.2654205, a1 = -0.16423664, a2 = 0.0030067682, a3 = -0.000024485162, a4 = 0.000000079258368, a5 = 0 }); //3.0
+            
+
+
+
+            //Минимальные и максимальные т-ры для текущего массива графиков
+            var mimaxTempsWater0 = new Tuple<float, float>[] { 
+              new Tuple<float, float>(39.398f - 2, 87.005f +2),
+              new Tuple<float, float>(41.745f - 2, 89.683f +2),
+              new Tuple<float, float>(43.955f -2, 92.200f +2),
+              new Tuple<float, float>(46.045f -2, 94.577f +2),
+              new Tuple<float, float>(48.029f -2, 96.830f +2),
+              new Tuple<float, float>(49.919f -2, 98.974f +2),
+              new Tuple<float, float>(51.725f -2, 101.018f +2),
+              new Tuple<float, float>(53.455f -2, 102.974f +2),
+              new Tuple<float, float>(55.115f -2, 104.850f +2),
+              new Tuple<float, float>(56.713f -2, 106.652f +2),
+              new Tuple<float, float>(58.252f -2, 108.387f +2),
+              new Tuple<float, float>(59.739f -2, 110.060f +2),
+              new Tuple<float, float>(61.177f -2, 111.676f +2),
+              new Tuple<float, float>(62.569f -2, 113.240f +2),
+              new Tuple<float, float>(63.919f -2, 114.755f +2),
+              new Tuple<float, float>(65.230f -2, 116.224f +2),
+              new Tuple<float, float>(66.504f -2, 117.651f +2),
+              new Tuple<float, float>(67.744f -2, 119.038f +2),
+              new Tuple<float, float>(68.951f -2, 120.388f +2),
+            };
 
             #endregion
 
             //Определяем по формулам какого давления производим расчеты: 
             List<double> pressureList;
             List<CoefSet> coefList;
+            Tuple<float, float>[] minmaxList;
             double waterContent;
 
             switch (configurationCode)
@@ -348,36 +432,58 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
                 case 1:
                     pressureList = pressureListWater_18;
                     coefList = coefListWater_18;
+                    minmaxList = mimaxTempsWater18;
                     waterContent = 18.0;
                     break;
                 case 2:
                     pressureList = pressureListWater_16;
                     coefList = coefListWater_16;
+                    minmaxList = mimaxTempsWater18;
                     waterContent = 16.0;
                     break;
                 case 3:
                     pressureList = pressureListWater_00;
                     coefList = coefListWater_00;
+                    minmaxList = mimaxTempsWater0;
                     waterContent = 0.0;
                     break;
                 default:
                     pressureList = pressureListWater_00;
                     coefList = coefListWater_00;
+                    minmaxList = mimaxTempsWater0;
                     waterContent = 0.0;
                     break;
             }
 
 
-
             //Определяем номер формулы (по давлению - линейная интерполяция)
             var numOfRange = GetNumOfFormula(pressureList, _press, out double deviation);
+
+            //Ограничиваем минимальную и максимальную т-ру для каждого графика
+            if (_temp < minmaxList[numOfRange].Item1)
+                _temp = minmaxList[numOfRange].Item1;
+
+            if (_temp > minmaxList[numOfRange].Item2)
+                _temp = minmaxList[numOfRange].Item2;
+
 
             double content;
             //Вичисляем содержание
             //Если переданное давление ниже минимального в массиве -
             if (numOfRange == 0)
+            {
+                //content = getPolynomValue(_temp, coefList[0]);
+
+                //01.04.2020 - Считаем по коэффициенту наклона прямой вниз влево
+                var y1 = getPolynomValue(_temp, coefList[0]);
+                var y2 = getPolynomValue(_temp, coefList[1]);
+
+                content = y1 + (y1 - y2) * (pressureList[0] - _press) / (pressureList[1] - pressureList[0]);
+            }
                 //Считаем по формуле №0
-                content = getPolynomValue(_temp, coefList[0]);
+                
+
+
 
             //Если переданное давление - больше максимального в массиве - 
             else if (numOfRange == pressureList.Count())
@@ -396,8 +502,9 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
                 double tmpcount_2 = getPolynomValue(_temp, coefList[numOfRange]);
 
                 //При увеличении давления - содержание повышается
-                content = tmpcount_1 + (tmpcount_2 - tmpcount_1) * deviation;
-            }
+               //Учитываем наклон прямой в другую сторону
+                content = tmpcount_2 + (tmpcount_1 - tmpcount_2) * deviation;
+            }         
 
             var tmp_content = new double[3];
 

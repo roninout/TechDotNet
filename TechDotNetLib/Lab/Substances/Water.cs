@@ -47,7 +47,8 @@ namespace TechDotNetLib.Lab.Substances
                 a4 = -0.00000045396011;
                 a5 = 1.2999754E-09;
                 //density = a5 * Math.Pow(temperature, 5) + a4 * Math.Pow(temperature, 4) + a3 * Math.Pow(temperature, 3) + a2 * Math.Pow(temperature, 2) + a1 * temperature + a0;
-                density = WspLib.wspDSWT(temperature + 273.15);
+                
+                density = WspLib.wspDSWT(Math.Max(0, temperature) + 273.15);
             }
             else
             {
