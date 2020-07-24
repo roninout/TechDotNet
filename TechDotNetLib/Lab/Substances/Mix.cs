@@ -305,6 +305,9 @@ namespace TechDotNetLib.Lab.Substances
 
         public double[] GetContent(float _temp, float _press, int configurationCode)
         {
+
+            //configurationCode = 10 : разряд единиц - признак снятия ограничения 0-100% (0 - не снято; 1 - снято); Разряд десятков - выбор формулы для расчетов
+
             //Инициализируем начальный массив содержаний по длине состава смеси
             double[] tmp_content = new double[mixContent.Count];
 
@@ -322,11 +325,11 @@ namespace TechDotNetLib.Lab.Substances
             #region Calculation Content for different Pairs
             //Пара Ацетонитрил - Вода
             if (component_1 is Acetonitrile && component_2 is Water)            
-                CalculateContentFunc = ((t, p, c) => ContentCalc.ACN_Water_Content(t, p));
+                CalculateContentFunc = ((t, p, c) => ContentCalc.ACN_Water_Content(t, p, c));
 
             //Пара Вода -Ацетонитрил
             if (component_1 is Water && component_2 is Acetonitrile)
-                CalculateContentFunc = ((t, p, c) => ContentCalc.Water_ACN_Content(t, p));
+                CalculateContentFunc = ((t, p, c) => ContentCalc.Water_ACN_Content(t, p, c));
 
 
             //Пара ПропиленОксид - Пропилен
