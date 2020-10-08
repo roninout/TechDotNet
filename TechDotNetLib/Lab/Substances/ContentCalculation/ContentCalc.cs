@@ -73,7 +73,7 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
             //configurationCode = 20 - заазеотропная концентрация (колонна 1.Т05)
 
             //Определяем список давлений для расчета содержания
-            List<double> lowPressureList = new List<double> { 0.80, 0.85, 0.90, 0.95, 1.0, 1.05, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0 }; //16
+            List<double> lowPressureList = new List<double> { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.85, 0.90, 0.95, 1.0, 1.05, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0 }; //22
             List<double> highPressureList = new List<double> { 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4.0, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5.0 }; //21
 
 
@@ -83,24 +83,32 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
 
 
             #region Coefs for Polynom for Low Pressure
+            coefListLowPressure.Add(new CoefSet { a0 = 8.2013578000, a1 = -1.1992905000, a2 = 0.0786533790, a3 = -0.0025684228, a4 = 0.0000415490, a5 = -0.0000002696 });   //0
+            coefListLowPressure.Add(new CoefSet { a0 = 63.5151230000, a1 = -6.8795964000, a2 = 0.3014546000, a3 = -0.0065831353, a4 = 0.0000716465, a5 = -0.0000003119 });  //1
+            coefListLowPressure.Add(new CoefSet { a0 = 177.4142500000, a1 = -16.0329960000, a2 = 0.5811110200, a3 = -0.0105053830, a4 = 0.0000947512, a5 = -0.0000003417 });//2
+            coefListLowPressure.Add(new CoefSet { a0 = 339.3460800000, a1 = -27.2247120000, a2 = 0.8742376400, a3 = -0.0140093180, a4 = 0.0001120576, a5 = -0.0000003584 });//3
+            coefListLowPressure.Add(new CoefSet { a0 = 537.5884700000, a1 = -39.5307930000, a2 = 1.1627157000, a3 = -0.0170716290, a4 = 0.0001251547, a5 = -0.0000003668 });//4
+            coefListLowPressure.Add(new CoefSet { a0 = 783.9303000000, a1 = -53.8488820000, a2 = 1.4790317000, a3 = -0.0202825380, a4 = 0.0001389015, a5 = -0.0000003803 });//5
+            coefListLowPressure.Add(new CoefSet { a0 = 1070.1684000000, a1 = -69.5404230000, a2 = 1.8065416000, a3 = -0.0234347140, a4 = 0.0001518300, a5 = -0.0000003933 });//6
 
-            coefListLowPressure.Add(new CoefSet { a0 = 1440.3777, a1 = -89.3228, a2 = 2.2141348, a3 = -0.027407457, a4 = 0.00016944558, a5 = -0.00000041877874 }); //0
-            coefListLowPressure.Add(new CoefSet { a0 = 1570.0401, a1 = -95.33907, a2 = 2.3142095, a3 = -0.028054098, a4 = 0.00016987307, a5 = -0.00000041122021 }); //1
-            coefListLowPressure.Add(new CoefSet { a0 = 1777.4775, a1 = -105.85585, a2 = 2.5198668, a3 = -0.029957834, a4 = 0.0001779023, a5 = -0.00000042233979 }); //2
-            coefListLowPressure.Add(new CoefSet { a0 = 1896.2999, a1 = -110.86729, a2 = 2.5910406, a3 = -0.030244902, a4 = 0.00017636215, a5 = -0.00000041114958 }); //3
-            coefListLowPressure.Add(new CoefSet { a0 = 2170.8347, a1 = -124.81087, a2 = 2.8682768, a3 = -0.032922187, a4 = 0.00018876302, a5 = -0.00000043266698 }); //4
-            coefListLowPressure.Add(new CoefSet { a0 = 2217.0243, a1 = -125.26626, a2 = 2.8293404, a3 = -0.03192183, a4 = 0.00017993191, a5 = -0.00000040550801 }); //5
-            coefListLowPressure.Add(new CoefSet { a0 = 2997.7116, a1 = -166.85622, a2 = 3.7115765, a3 = -0.04123259, a4 = 0.00022879164, a5 = -0.00000050742505 }); //6
-            coefListLowPressure.Add(new CoefSet { a0 = 2794.7367, a1 = -151.15536, a2 = 3.2680989, a3 = -0.035298351, a4 = 0.00019048513, a5 = -0.00000041100391 }); //7
-            coefListLowPressure.Add(new CoefSet { a0 = 3374.0552, a1 = -178.01867, a2 = 3.7544243, a3 = -0.039555216, a4 = 0.00020820833, a5 = -0.000000438164 }); //8
-            coefListLowPressure.Add(new CoefSet { a0 = 4211.6383, a1 = -216.79478, a2 = 4.4604102, a3 = -0.045842584, a4 = 0.00023538451, a5 = -0.00000048316456 }); //9           
-            coefListLowPressure.Add(new CoefSet { a0 = 4344.5903, a1 = -219.10347, a2 = 4.4169347, a3 = -0.044484198, a4 = 0.00022384557, a5 = -0.00000045034019 }); //10
-            coefListLowPressure.Add(new CoefSet { a0 = 5081.7879, a1 = -251.39468, a2 = 4.9711015, a3 = -0.049108614, a4 = 0.00024238751, a5 = -0.00000047828714 }); //11 
 
-            coefListLowPressure.Add(new CoefSet { a0 = 4767.4348, a1 = -230.90959, a2 = 4.4712516, a3 = -0.043261287, a4 = 0.00020917081, a5 = -0.00000040441435 }); //12
-            coefListLowPressure.Add(new CoefSet { a0 = 8459.4208, a1 = -404.87347, a2 = 7.7440387, a3 = -0.073987313, a4 = 0.00035311011, a5 = -0.00000067354803 }); //13
-            coefListLowPressure.Add(new CoefSet { a0 = 6969.8248, a1 = -327.1807, a2 = 6.1393161, a3 = -0.057555687, a4 = 0.0002696029, a5 = -0.00000050488142 }); //14
-            coefListLowPressure.Add(new CoefSet { a0 = 4478.7845, a1 = -205.50501, a2 = 3.7710001, a3 = -0.034587978, a4 = 0.00015859715, a5 = -0.00000029092906 }); //15
+            coefListLowPressure.Add(new CoefSet { a0 = 1440.3777, a1 = -89.3228, a2 = 2.2141348, a3 = -0.027407457, a4 = 0.00016944558, a5 = -0.00000041877874 }); //7
+            coefListLowPressure.Add(new CoefSet { a0 = 1570.0401, a1 = -95.33907, a2 = 2.3142095, a3 = -0.028054098, a4 = 0.00016987307, a5 = -0.00000041122021 }); //8
+            coefListLowPressure.Add(new CoefSet { a0 = 1777.4775, a1 = -105.85585, a2 = 2.5198668, a3 = -0.029957834, a4 = 0.0001779023, a5 = -0.00000042233979 }); //9
+            coefListLowPressure.Add(new CoefSet { a0 = 1896.2999, a1 = -110.86729, a2 = 2.5910406, a3 = -0.030244902, a4 = 0.00017636215, a5 = -0.00000041114958 }); //10
+            coefListLowPressure.Add(new CoefSet { a0 = 2170.8347, a1 = -124.81087, a2 = 2.8682768, a3 = -0.032922187, a4 = 0.00018876302, a5 = -0.00000043266698 }); //11
+            coefListLowPressure.Add(new CoefSet { a0 = 2217.0243, a1 = -125.26626, a2 = 2.8293404, a3 = -0.03192183, a4 = 0.00017993191, a5 = -0.00000040550801 }); //12
+            coefListLowPressure.Add(new CoefSet { a0 = 2997.7116, a1 = -166.85622, a2 = 3.7115765, a3 = -0.04123259, a4 = 0.00022879164, a5 = -0.00000050742505 }); //13
+            coefListLowPressure.Add(new CoefSet { a0 = 2794.7367, a1 = -151.15536, a2 = 3.2680989, a3 = -0.035298351, a4 = 0.00019048513, a5 = -0.00000041100391 }); //14
+            coefListLowPressure.Add(new CoefSet { a0 = 3374.0552, a1 = -178.01867, a2 = 3.7544243, a3 = -0.039555216, a4 = 0.00020820833, a5 = -0.000000438164 }); //15
+            coefListLowPressure.Add(new CoefSet { a0 = 4211.6383, a1 = -216.79478, a2 = 4.4604102, a3 = -0.045842584, a4 = 0.00023538451, a5 = -0.00000048316456 }); //16           
+            coefListLowPressure.Add(new CoefSet { a0 = 4344.5903, a1 = -219.10347, a2 = 4.4169347, a3 = -0.044484198, a4 = 0.00022384557, a5 = -0.00000045034019 }); //17
+            coefListLowPressure.Add(new CoefSet { a0 = 5081.7879, a1 = -251.39468, a2 = 4.9711015, a3 = -0.049108614, a4 = 0.00024238751, a5 = -0.00000047828714 }); //18 
+
+            coefListLowPressure.Add(new CoefSet { a0 = 4767.4348, a1 = -230.90959, a2 = 4.4712516, a3 = -0.043261287, a4 = 0.00020917081, a5 = -0.00000040441435 }); //19
+            coefListLowPressure.Add(new CoefSet { a0 = 8459.4208, a1 = -404.87347, a2 = 7.7440387, a3 = -0.073987313, a4 = 0.00035311011, a5 = -0.00000067354803 }); //20
+            coefListLowPressure.Add(new CoefSet { a0 = 6969.8248, a1 = -327.1807, a2 = 6.1393161, a3 = -0.057555687, a4 = 0.0002696029, a5 = -0.00000050488142 }); //21
+            coefListLowPressure.Add(new CoefSet { a0 = 4478.7845, a1 = -205.50501, a2 = 3.7710001, a3 = -0.034587978, a4 = 0.00015859715, a5 = -0.00000029092906 }); //22
 
 
 
@@ -244,7 +252,7 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
         }
 
         //Пара ПропиленОксид - Пропилен
-        public static double[] PO_P_Content(float _temp, float _press)
+        public static double[] PO_P_Content(float _temp, float _press, int configurationCode)
         {
             //Определяем список давлений для расчета содержания
             List<double> pressureList = new List<double> { 1.0, 1.3, 1.6, 1.9, 2.0, 2.2, 2.5 };
@@ -294,20 +302,20 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
                 content = tmpcount_1 - (tmpcount_1 - tmpcount_2) * deviation;
             }
 
-            var tmp_content = new double[3];
+            var tmp_content = new double[3];            
 
-            tmp_content[0] = Math.Max(0, Math.Min(100.0, content * 100.0) * 100.0);
+            tmp_content[0] = configurationCode % 10 == 1 ? content * 10000.0 : Math.Max(0.0, Math.Min(100.0, content * 100.0) * 100.0);
             tmp_content[1] = 10000.0 - tmp_content[0];
 
             return tmp_content;
         }
 
         //Пара Пропилен - ПропиленОксид
-        public static double[] P_PO_Content(float _temp, float _press)
+        public static double[] P_PO_Content(float _temp, float _press, int configurationCode)
         {
             var tmp_content = new double[3];
 
-            tmp_content[0] = PO_P_Content(_temp, _press)[1];
+            tmp_content[0] = PO_P_Content(_temp, _press, configurationCode)[1];
             tmp_content[1] = 10000.0 - tmp_content[0];
 
             return tmp_content;
