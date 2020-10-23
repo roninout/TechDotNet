@@ -59,7 +59,9 @@ namespace TechDotNetLib.Lab.Substances
                 try
                 {
                     //density = pressure * Math.Pow(10, 2) / (R / MolarMass) / (temperature + 273.15);
-                    density = WspLib.wspDSST(temperature + 273.15);
+                    //density = WspLib.wspDSST(temperature + 273.15);
+                    density = WspLib.wspDPT(pressure * 100000, temperature + 273.15);
+
                 }
                 catch (ArithmeticException)
                 {

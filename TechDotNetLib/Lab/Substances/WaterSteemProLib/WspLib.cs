@@ -50,6 +50,16 @@ namespace TechDotNetLib.Lab.Substances.WaterSteemProLib
         [DllImport("okawsp6.dll")]
         public static extern double wspDSST(double t);
 
+
+        /// <summary>
+        ///  Плотность пара как функция от температуры и давления
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [DllImport("okawsp6.dll")]
+        public static extern double wspDPT(double p, double t);
+
         #endregion
 
 
