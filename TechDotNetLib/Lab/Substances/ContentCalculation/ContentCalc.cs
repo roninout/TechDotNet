@@ -626,5 +626,88 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
 
 
 
+
+
+        //Пара ПропиленОксид - Вода
+        public static double[] PO_Water_Content(float _temp, float _press, int configurationCode)
+        {
+            //Определяем список давлений для расчета содержания
+            List<double> pressureList = new List<double> { 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0 };
+
+            //Определяем коэффициенты для полинома при разных давлениях
+            List<CoefSet> coefList = new List<CoefSet>();
+
+            #region Coefs for Polynom for Low Pressure
+
+            coefList.Add(new CoefSet { a0 = 2.7093011, a1 = -0.23408704, a2 = 0.011829591, a3 = -0.00028176147, a4 = 0.0000031854242, a5 = -0.000000013946172  });
+            coefList.Add(new CoefSet { a0 = 3.8409595, a1 = -0.33718629, a2 = 0.015089884, a3 = -0.00032249033, a4 = 0.000003307335,  a5 = -0.000000013215794  });
+            coefList.Add(new CoefSet { a0 = 5.1863059, a1 = -0.44747144, a2 = 0.018253765, a3 = -0.0003584722,  a4 = 0.0000034019083, a5 = -0.0000000126303    });
+            coefList.Add(new CoefSet { a0 = 6.7006878, a1 = -0.56099571, a2 = 0.021240062, a3 = -0.00038935005, a4 = 0.0000034661094, a5 = -0.000000012107901  });
+            coefList.Add(new CoefSet { a0 = 8.4029747, a1 = -0.68052377, a2 = 0.024203475, a3 = -0.00041850558, a4 = 0.0000035273071, a5 = -0.000000011692387  });
+            coefList.Add(new CoefSet { a0 = 10.249351, a1 = -0.8027264,  a2 = 0.027065198, a3 = -0.00044505426, a4 = 0.0000035773567, a5 = -0.000000011329427  });
+            coefList.Add(new CoefSet { a0 = 12.247331, a1 = -0.92868304, a2 = 0.029884817, a3 = -0.00047018964, a4 = 0.0000036242812, a5 = -0.000000011022925  });
+            coefList.Add(new CoefSet { a0 = 14.373864, a1 = -1.0570257,  a2 = 0.032640794, a3 = -0.00049379049, a4 = 0.0000036664236, a5 = -0.000000010754359  });
+            coefList.Add(new CoefSet { a0 = 16.588707, a1 = -1.1850395,  a2 = 0.035269933, a3 = -0.00051512742, a4 = 0.0000036983444, a5 = -0.000000010499794  });
+            coefList.Add(new CoefSet { a0 = 18.927772, a1 = -1.3157837,  a2 = 0.037873998, a3 = -0.00053573842, a4 = 0.00000373,      a5 = -0.000000010278392  });
+            coefList.Add(new CoefSet { a0 = 21.381486, a1 = -1.4487946,  a2 = 0.040448736, a3 = -0.00055562662, a4 = 0.0000037608837, a5 = -0.000000010082724  });
+            coefList.Add(new CoefSet { a0 = 23.928099, a1 = -1.5828794,  a2 = 0.042972152, a3 = -0.00057458663, a4 = 0.0000037893714, a5 = -0.0000000099046818 });
+            coefList.Add(new CoefSet { a0 = 26.531277, a1 = -1.715805,   a2 = 0.045393961, a3 = -0.00059205033, a4 = 0.0000038117998, a5 = -0.0000000097322613 });
+            coefList.Add(new CoefSet { a0 = 29.259985, a1 = -1.8522268,  a2 = 0.047836867, a3 = -0.0006095565,  a4 = 0.0000038370845, a5 = -0.0000000095834988 });
+            coefList.Add(new CoefSet { a0 = 32.069815, a1 = -1.9895125,  a2 = 0.050241304, a3 = -0.0006264238,  a4 = 0.0000038609954, a5 = -0.0000000094463455 });
+            coefList.Add(new CoefSet { a0 = 34.921566, a1 = -2.1254708,  a2 = 0.052560794, a3 = -0.000642155,   a4 = 0.0000038805979, a5 = -0.0000000093125595 });
+
+            #endregion
+
+            //Определяем номер формулы (по давлению - линейная интерполяция)
+            var numOfRange = GetNumOfFormula(pressureList, _press, out double deviation);
+
+            double content;
+            //Вичисляем содержание
+            //Если переданное давление ниже минимального в массиве -
+            if (numOfRange == 0)
+                //Считаем по формуле №0
+                content = getPolynomValue(_temp, coefList[0]);
+
+            //Если переданное давление - больше максимального в массиве - 
+            else if (numOfRange == pressureList.Count)
+                //Считаем по формуле №pressureList.Count - 1
+                content = getPolynomValue(_temp, coefList[pressureList.Count - 1]);
+
+            //Если попали в точку базового давления-
+            else if (1 - deviation < 0.1)
+                //Считаем по конкретной формуле один раз
+                content = getPolynomValue(_temp, coefList[numOfRange]);
+
+            else
+            {
+                //Считем по двум формулам
+                double tmpcount_1 = getPolynomValue(_temp, coefList[numOfRange - 1]);
+                double tmpcount_2 = getPolynomValue(_temp, coefList[numOfRange]);
+
+                //При увеличении давления - содержание снижается
+                content = tmpcount_1 - (tmpcount_1 - tmpcount_2) * deviation;
+            }
+
+            var tmp_content = new double[3];
+
+            tmp_content[0] = configurationCode % 10 == 1 ? content * 10000.0 : Math.Max(0.0, Math.Min(100.0, content * 100.0) * 100.0);
+            tmp_content[1] = 10000.0 - tmp_content[0];
+
+            return tmp_content;
+        }
+
+        //Пара Вода - ПропиленОксид
+        public static double[] Water_PO_Content(float _temp, float _press, int configurationCode)
+        {
+            var tmp_content = new double[3];
+
+            tmp_content[0] = PO_Water_Content(_temp, _press, configurationCode)[1];
+            tmp_content[1] = 10000.0 - tmp_content[0];
+
+            return tmp_content;
+        }
+
+
+
     }
 }

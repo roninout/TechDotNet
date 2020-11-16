@@ -342,13 +342,20 @@ namespace TechDotNetLib.Lab.Substances
 
             //Трио Ацетонитрил - Вода - Пропилен Оксид
             if (component_1 is Acetonitrile && component_2 is Water && component_3 is PropyleneOxyde)
-                CalculateContentFunc = ((t, p, c) => ContentCalc.ACN_Water_PO_Content(t, p, c));
-            
+                CalculateContentFunc = ((t, p, c) => ContentCalc.ACN_Water_PO_Content(t, p, c));           
                
 
             //Трио Пропилен Оксид - Вода - Ацетонитрил
             if (component_1 is PropyleneOxyde && component_2 is Water && component_3 is Acetonitrile)            
-                CalculateContentFunc = ((t, p, c) => ContentCalc.PO_Water_ACN_Content(t, p, c));          
+                CalculateContentFunc = ((t, p, c) => ContentCalc.PO_Water_ACN_Content(t, p, c));
+
+            //Пара Пропилен-оксид - Вода
+            if (component_1 is PropyleneOxyde && component_2 is Water)
+                CalculateContentFunc = ((t, p, c) => ContentCalc.PO_Water_Content(t, p, c));
+
+            //Пара Вода - Пропилен-оксид
+            if (component_1 is Water && component_2 is PropyleneOxyde)
+                CalculateContentFunc = ((t, p, c) => ContentCalc.Water_PO_Content(t, p, c));
 
             #endregion
 
