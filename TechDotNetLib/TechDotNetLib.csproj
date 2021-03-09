@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="ActiveX\TestAX\ITestAX.cs" />
     <Compile Include="ActiveX\TestAX\ITestAXEvents.cs" />
+    <Compile Include="Lab\Substances\Acetaldehyde.cs" />
     <Compile Include="Lab\Substances\Acetonitrile.cs" />
     <Compile Include="Lab\Substances\Butadiene_1_2.cs" />
     <Compile Include="Lab\Substances\Butadiene_1_3.cs" />

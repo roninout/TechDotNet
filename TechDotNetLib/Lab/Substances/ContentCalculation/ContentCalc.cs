@@ -708,6 +708,96 @@ namespace TechDotNetLib.Lab.Substances.ContentCalculation
         }
 
 
+        //Пара Ацетальдегид - ПропиленОксид
+        public static double[] ACA_PO_Content(float _temp, float _press, int configurationCode)
+        {
+            //Определяем список давлений для расчета содержания
+            List<double> pressureList = new List<double> {0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0};
+
+            //Определяем коэффициенты для полинома при разных давлениях
+            List<CoefSet> coefList = new List<CoefSet>();
+
+            #region Coefs for Polynom for Low Pressure
+
+            coefList.Add(new CoefSet { a0 = 0.4124895500, a1 = -0.0775958820, a2 = 0.0000813520, a3 = 0.0000101050, a4 = 0.0000001967, a5 = -0.0000000232  });
+            coefList.Add(new CoefSet { a0 = 0.6640816300, a1 = -0.0775024770, a2 = 0.0000609626, a3 = 0.0000035141, a4 = 0.0000004776, a5 = -0.0000000128  });
+            coefList.Add(new CoefSet { a0 = 0.8887442600, a1 = -0.0778619020, a2 = 0.0001132785, a3 = -0.0000030906, a4 = 0.0000005252, a5 = -0.0000000078 });
+            coefList.Add(new CoefSet { a0 = 1.0948275000, a1 = -0.0790502420, a2 = 0.0002599963, a3 = -0.0000151188, a4 = 0.0000009228, a5 = -0.0000000147 });
+            coefList.Add(new CoefSet { a0 = 1.2890629000, a1 = -0.0812818820, a2 = 0.0004600882, a3 = -0.0000240482, a4 = 0.0000009584, a5 = -0.0000000111 });
+            coefList.Add(new CoefSet { a0 = 1.4775151000, a1 = -0.0851828010, a2 = 0.0008268674, a3 = -0.0000445428, a4 = 0.0000015537, a5 = -0.0000000193 });
+            coefList.Add(new CoefSet { a0 = 1.6616453000, a1 = -0.0893593240, a2 = 0.0010530678, a3 = -0.0000469716, a4 = 0.0000013062, a5 = -0.0000000129 });
+            coefList.Add(new CoefSet { a0 = 1.8447888000, a1 = -0.0942519400, a2 = 0.0012710901, a3 = -0.0000479594, a4 = 0.0000010866, a5 = -0.0000000085 });
+            coefList.Add(new CoefSet { a0 = 2.0476778000, a1 = -0.1051332700, a2 = 0.0020785393, a3 = -0.0000809445, a4 = 0.0000017885, a5 = -0.0000000149 });
+            coefList.Add(new CoefSet { a0 = 2.2632663000, a1 = -0.1184354600, a2 = 0.0029767516, a3 = -0.0001135167, a4 = 0.0000023917, a5 = -0.0000000196 });
+            coefList.Add(new CoefSet { a0 = 2.4548613000, a1 = -0.1241521900, a2 = 0.0029572556, a3 = -0.0000965326, a4 = 0.0000017293, a5 = -0.0000000118 });
+            coefList.Add(new CoefSet { a0 = 2.6836581000, a1 = -0.1381667400, a2 = 0.0036905066, a3 = -0.0001166195, a4 = 0.0000020074, a5 = -0.0000000134 });
+            coefList.Add(new CoefSet { a0 = 2.9875272000, a1 = -0.1659114000, a2 = 0.0054111750, a3 = -0.0001730256, a4 = 0.0000029579, a5 = -0.0000000200 });
+            coefList.Add(new CoefSet { a0 = 3.2484188000, a1 = -0.1823621900, a2 = 0.0060579534, a3 = -0.0001824040, a4 = 0.0000029222, a5 = -0.0000000186 });
+
+            coefList.Add(new CoefSet { a0 = 3.4963758000, a1 = -0.1950478300, a2 = 0.0063714787, a3 = -0.0001796887, a4 = 0.0000026938, a5 = -0.0000000160  });
+            coefList.Add(new CoefSet { a0 = 3.9999790000, a1 = -0.2176298700, a2 = 0.0066482967, a3 = -0.0001618103, a4 = 0.0000020708, a5 = -0.0000000104  });
+            coefList.Add(new CoefSet { a0 = 5.0350447000, a1 = -0.3173425700, a2 = 0.0115221990, a3 = -0.0002856318, a4 = 0.0000036822, a5 = -0.0000000190  });
+            coefList.Add(new CoefSet { a0 = 6.3590169000, a1 = -0.4456969700, a2 = 0.0174359320, a3 = -0.0004257921, a4 = 0.0000053706, a5 = -0.0000000272  });
+            coefList.Add(new CoefSet { a0 = 7.3173812000, a1 = -0.5089863500, a2 = 0.0191330990, a3 = -0.0004367805, a4 = 0.0000051427, a5 = -0.0000000244  });
+            coefList.Add(new CoefSet { a0 = 8.1988183000, a1 = -0.5540264700, a2 = 0.0196625920, a3 = -0.0004165117, a4 = 0.0000045437, a5 = -0.0000000199  });
+            coefList.Add(new CoefSet { a0 = 9.8764292000, a1 = -0.6910229500, a2 = 0.0246045960, a3 = -0.0005057746, a4 = 0.0000053368, a5 = -0.0000000227  });
+            coefList.Add(new CoefSet { a0 = 11.9065720000, a1 = -0.8570048700, a2 = 0.0304830690, a3 = -0.0006100389, a4 = 0.0000062487, a5 = -0.0000000258 });
+            coefList.Add(new CoefSet { a0 = 14.2097140000, a1 = -1.0378511000, a2 = 0.0364838730, a3 = -0.0007078517, a4 = 0.0000070107, a5 = -0.0000000279 });
+            coefList.Add(new CoefSet { a0 = 16.6967540000, a1 = -1.2269440000, a2 = 0.0425109400, a3 = -0.0008021653, a4 = 0.0000077165, a5 = -0.0000000299 });
+            coefList.Add(new CoefSet { a0 = 20.3376970000, a1 = -1.5204801000, a2 = 0.0523822500, a3 = -0.0009684913, a4 = 0.0000091079, a5 = -0.0000000345 });
+
+            #endregion
+
+            //Определяем номер формулы (по давлению - линейная интерполяция)
+            var numOfRange = GetNumOfFormula(pressureList, _press, out double deviation);
+
+            double content;
+            //Вичисляем содержание
+            //Если переданное давление ниже минимального в массиве -
+            if (numOfRange == 0)
+                //Считаем по формуле №0
+                content = getPolynomValue(_temp, coefList[0]);
+
+            //Если переданное давление - больше максимального в массиве - 
+            else if (numOfRange == pressureList.Count)
+                //Считаем по формуле №pressureList.Count - 1
+                content = getPolynomValue(_temp, coefList[pressureList.Count - 1]);
+
+            //Если попали в точку базового давления-
+            else if (1 - deviation < 0.1)
+                //Считаем по конкретной формуле один раз
+                content = getPolynomValue(_temp, coefList[numOfRange]);
+
+            else
+            {
+                //Считем по двум формулам
+                double tmpcount_1 = getPolynomValue(_temp, coefList[numOfRange - 1]);
+                double tmpcount_2 = getPolynomValue(_temp, coefList[numOfRange]);
+
+                //При увеличении давления - содержание снижается
+                content = tmpcount_1 - (tmpcount_1 - tmpcount_2) * deviation;
+            }
+
+            var tmp_content = new double[3];
+
+            tmp_content[0] = configurationCode % 10 == 1 ? content * 10000.0 : Math.Max(0.0, Math.Min(100.0, content * 100.0) * 100.0);
+            tmp_content[1] = 10000.0 - tmp_content[0];
+
+            return tmp_content;
+        }
+
+        //Пара ПропиленОксид - Ацетальдегид
+        public static double[] PO_ACA_Content(float _temp, float _press, int configurationCode)
+        {
+            var tmp_content = new double[3];
+
+            tmp_content[0] = ACA_PO_Content(_temp, _press, configurationCode)[1];
+            tmp_content[1] = 10000.0 - tmp_content[0];
+
+            return tmp_content;
+        }
+
+
 
     }
 }

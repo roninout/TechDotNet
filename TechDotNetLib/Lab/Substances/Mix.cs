@@ -70,6 +70,14 @@ namespace TechDotNetLib.Lab.Substances
                 switch (_components[i])
                 {
                     //Ацетонитрил
+                    case "ACA":
+                        sub = new Acetaldehyde(false);      //жидкость
+                        break;
+                    case "ACAS":
+                        sub = new Acetaldehyde(true);       //газ
+                        break;
+
+                    //Ацетонитрил
                     case "ACN":
                         sub = new Acetonitrile(false);      //жидкость
                         break;
@@ -356,7 +364,14 @@ namespace TechDotNetLib.Lab.Substances
             //Пара Вода - Пропилен-оксид
             if (component_1 is Water && component_2 is PropyleneOxyde)
                 CalculateContentFunc = ((t, p, c) => ContentCalc.Water_PO_Content(t, p, c));
+                        
+            //Пара Ацетальдегид - Пропилен-оксид
+            if (component_1 is Acetaldehyde && component_2 is PropyleneOxyde)
+                CalculateContentFunc = ((t, p, c) => ContentCalc.ACA_PO_Content(t, p, c));
 
+            //Пара Пропилен-оксид - Ацетальдегид
+            if (component_1 is PropyleneOxyde && component_2 is Acetaldehyde)
+                CalculateContentFunc = ((t, p, c) => ContentCalc.PO_ACA_Content(t, p, c));
             #endregion
 
 
