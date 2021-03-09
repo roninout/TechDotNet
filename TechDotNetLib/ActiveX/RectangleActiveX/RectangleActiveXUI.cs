@@ -30,51 +30,51 @@ namespace TechDotNetLib.ActiveX.RectangleActiveX
         }
 
         #region Subscribe
-        [ComRegisterFunction()]
-        public static void RegisterClass(string key)
-        {
-            // Удаляем HKEY_CLASSES_ROOT\ из переданного ключа
-            StringBuilder sb = new StringBuilder(key);
-            sb.Replace(@"HKEY_CLASSES_ROOT\", "");
+        //[ComRegisterFunction()]
+        //public static void RegisterClass(string key)
+        //{
+        //    // Удаляем HKEY_CLASSES_ROOT\ из переданного ключа
+        //    StringBuilder sb = new StringBuilder(key);
+        //    sb.Replace(@"HKEY_CLASSES_ROOT\", "");
 
-            // Открываем ключ CLSID\{guid} в режиме записи
-            RegistryKey k = Registry.ClassesRoot.OpenSubKey(sb.ToString(), true);
+        //    // Открываем ключ CLSID\{guid} в режиме записи
+        //    RegistryKey k = Registry.ClassesRoot.OpenSubKey(sb.ToString(), true);
 
-            // Создаем ключ элемента управления ActiveX – это позволяет ему появиться
-            //в контейнере элемента управления ActiveX
-            RegistryKey ctrl = k.CreateSubKey("Control");
-            ctrl.Close();
+        //    // Создаем ключ элемента управления ActiveX – это позволяет ему появиться
+        //    //в контейнере элемента управления ActiveX
+        //    RegistryKey ctrl = k.CreateSubKey("Control");
+        //    ctrl.Close();
 
-            // Создаем запись CodeBase
-            RegistryKey inprocServer32 = k.OpenSubKey("InprocServer32", true);
-            inprocServer32.SetValue("CodeBase", Assembly.GetExecutingAssembly().CodeBase);
-            inprocServer32.Close();
+        //    // Создаем запись CodeBase
+        //    RegistryKey inprocServer32 = k.OpenSubKey("InprocServer32", true);
+        //    inprocServer32.SetValue("CodeBase", Assembly.GetExecutingAssembly().CodeBase);
+        //    inprocServer32.Close();
 
-            // И в заключении закрываем ключ реестра 
-            k.Close();
-        }
+        //    // И в заключении закрываем ключ реестра 
+        //    k.Close();
+        //}
 
-        [ComUnregisterFunction()]
-        public static void UnregisterClass(string key)
-        {
-            StringBuilder sb = new StringBuilder(key);
-            sb.Replace(@"HKEY_CLASSES_ROOT\", "");
+        //[ComUnregisterFunction()]
+        //public static void UnregisterClass(string key)
+        //{
+        //    StringBuilder sb = new StringBuilder(key);
+        //    sb.Replace(@"HKEY_CLASSES_ROOT\", "");
 
-            // Открываем ключ HKCR\CLSID\{guid} в режиме записи
-            RegistryKey k = Registry.ClassesRoot.OpenSubKey(sb.ToString(), true);
+        //    // Открываем ключ HKCR\CLSID\{guid} в режиме записи
+        //    RegistryKey k = Registry.ClassesRoot.OpenSubKey(sb.ToString(), true);
 
-            // Удаляем ключ элемента управления ActiveX 
-            k.DeleteSubKey("Control", false);
+        //    // Удаляем ключ элемента управления ActiveX 
+        //    k.DeleteSubKey("Control", false);
 
-            // Затем открываем ключ InprocServer32
-            RegistryKey inprocServer32 = k.OpenSubKey("InprocServer32", true);
+        //    // Затем открываем ключ InprocServer32
+        //    RegistryKey inprocServer32 = k.OpenSubKey("InprocServer32", true);
 
-            // Удаляем ключ CodeBase
-            k.DeleteSubKey("CodeBase", false);
+        //    // Удаляем ключ CodeBase
+        //    k.DeleteSubKey("CodeBase", false);
 
-            // И в заключении закрываем ключ реестра
-            k.Close();
-        }
+        //    // И в заключении закрываем ключ реестра
+        //    k.Close();
+        //}
         #endregion
 
         public void ShowRectangle(int TargetX, int TargetY, int ResolutionX, int ResolutionY, int RectangleWidth, int RectangleHeight, int NumberOfSteps)
